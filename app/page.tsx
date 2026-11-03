@@ -86,12 +86,12 @@ export default function Home() {
             return (
               <div
                 key={s.title}
-                className="rounded-3xl bg-white/8 border border-white/15 p-6 backdrop-blur-md transition hover:border-gold-400/50"
+                className="rounded-3xl bg-white/8 border border-white/15 p-6 backdrop-blur-md transition hover:border-white/40"
               >
-                <div className="w-11 h-11 rounded-2xl bg-gold-500 text-ink grid place-items-center shadow-sm">
+                <div className="w-11 h-11 rounded-2xl bg-cran-600 text-white grid place-items-center shadow-sm">
                   <Icon className="size-5" />
                 </div>
-                <h3 className="mt-4 font-serif text-xl text-gold-300">{s.title}</h3>
+                <h3 className="mt-4 font-serif text-xl text-white">{s.title}</h3>
                 <p className="mt-2 text-body-regular text-cream-100/85 leading-relaxed">{s.desc}</p>
               </div>
             );
@@ -100,7 +100,7 @@ export default function Home() {
 
         <section className="mt-16">
           <div className="text-center mb-8">
-            <Chip color="yellow" variant="caption" className="uppercase tracking-wider">
+            <Chip color="rose" variant="caption" className="uppercase tracking-wider">
               Interactive Game Modes
             </Chip>
             <h2 className="font-display text-3xl md:text-4xl mt-2">Four Ways to Play Live</h2>

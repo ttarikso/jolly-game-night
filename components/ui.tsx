@@ -44,6 +44,6 @@ export function Stage({
 export const OPTION_STYLE = [
   { bg: "bg-cran-600", ring: "ring-cran-500", sym: "🎄", text: "text-white" },
   { bg: "bg-pine-600", ring: "ring-pine-600", sym: "🎁", text: "text-white" },
-  { bg: "bg-gold-500", ring: "ring-gold-400", sym: "⭐", text: "text-ink" },
-  { bg: "bg-cran-700", ring: "ring-cran-600", sym: "🔔", text: "text-white" },
+  { bg: "bg-cran-500", ring: "ring-white", sym: "⭐", text: "text-white" },
+  { bg: "bg-pine-700", ring: "ring-pine-600", sym: "🔔", text: "text-white" },
 ];

@@ -344,7 +344,7 @@ export function PlayerApp({ pin }: { pin: string }) {
     else if (locked) body = wait("Locked out ❄️", "Someone on your side already tried this one.");
     else if (pos === 0)
       body = (
-        <div className="flex-1 grid place-items-center bg-gold-500 text-ink text-center p-8">
+        <div className="flex-1 grid place-items-center bg-cran-600 text-white text-center p-8">
           <div className="pop flex flex-col items-center">
             <AvatarBadge id={me.avatar || avatar} size="xl" className="mb-3" />
             <p className="font-display text-5xl">You&apos;re first!</p>

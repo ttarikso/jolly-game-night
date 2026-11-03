@@ -22,22 +22,22 @@
   --color-neutral-925: #121212;
   --color-blue-400:    #3392ff;
 
-  /* ----- Jolly Game Night Festive Palette ---------------------------------- */
+  /* ----- Jolly Game Night Festive Palette (Pure Red, Green & Snow White) ---- */
   --color-pine-950: #06201A;
   --color-pine-900: #0B2E24;
   --color-pine-800: #0E3B2E;
   --color-pine-700: #185443;
   --color-pine-600: #22694F;
-  --color-cran-700: #8E1B2C;
-  --color-cran-600: #B5283B;
-  --color-cran-500: #CC3A4C;
-  --color-gold-500: #E8B850;
-  --color-gold-400: #F0C96E;
-  --color-gold-300: #F6DC9C;
-  --color-cream-50: #FFFBF3;
-  --color-cream-100: #FBF3E4;
-  --color-cream-200: #F2E6D0;
-  --color-ink: #1F1B16;
+  --color-cran-700: #9E1B2E;
+  --color-cran-600: #D62839;
+  --color-cran-500: #E63946;
+  --color-gold-500: #D62839;
+  --color-gold-400: #FFFFFF;
+  --color-gold-300: #FFE5E8;
+  --color-cream-50: #FFFFFF;
+  --color-cream-100: #F8FAF9;
+  --color-cream-200: #E6EFEA;
+  --color-ink: #11221B;
 
   --font-display: var(--font-heading), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-heading), var(--font-inter), ui-sans-serif, system-ui, sans-serif;

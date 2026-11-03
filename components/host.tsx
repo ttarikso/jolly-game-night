@@ -27,10 +27,10 @@ function BuzzPanel({ st, value, onRight, onWrong, onReopen }: { st: HostState; v
   return (
     <div className="mt-5 text-center" aria-live="polite">
       {first ? (
-        <div className="pop inline-flex items-center gap-4 rounded-3xl bg-gold-500 text-ink px-8 py-4 shadow-xl">
+        <div className="pop inline-flex items-center gap-4 rounded-3xl bg-cran-600 text-white px-8 py-4 shadow-xl border-2 border-white/30">
           <AvatarBadge id={st.players[first]?.avatar} size="lg" />
           <div className="flex flex-col items-start text-left">
-            <span className="label !text-ink/70">Buzzed first</span>
+            <span className="label !text-white/80">Buzzed first</span>
             <span className="font-display text-4xl md:text-5xl" data-testid="first-buzz">{name(st, first)}</span>
             {teamOf(st, first) && <span className="font-semibold">{teamOf(st, first)}</span>}
           </div>
@@ -60,13 +60,13 @@ export function McStage({ st, data, players, onReveal, onNext }: { st: HostState
         <h2 className="font-display text-5xl text-pine-800">Leaderboard</h2>
         <ol className="mt-6 space-y-2 max-w-2xl mx-auto">
           {top.map((p, i) => (
-            <li key={p.id} className={`flex justify-between items-center rounded-2xl px-5 py-3 text-2xl font-bold ${i === 0 ? "bg-gold-500" : "bg-cream-200"}`}>
+            <li key={p.id} className={`flex justify-between items-center rounded-2xl px-5 py-3 text-2xl font-bold ${i === 0 ? "bg-cran-600 text-white" : "bg-cream-200 text-ink"}`}>
               <span className="flex items-center gap-3">
                 <span>{i + 1}.</span>
                 <AvatarBadge id={p.avatar} size="sm" />
                 <span>{p.name}</span>
               </span>
-              <span className="font-block">{p.score}{st.gained[p.id] ? <span className="text-pine-700 text-base ml-2">+{st.gained[p.id]}</span> : null}</span>
+              <span className="font-block">{p.score}{st.gained[p.id] ? <span className={`${i === 0 ? "text-white/90" : "text-pine-700"} text-base ml-2`}>+{st.gained[p.id]}</span> : null}</span>
             </li>
           ))}
         </ol>
@@ -119,7 +119,7 @@ export function BoardStage({ st, data, onPick, onBack, onRight, onWrong, onRevea
       <div>
         <p className="text-center font-display text-4xl text-gold-400 mb-4">★ Final Question ★</p>
         <Big><h2 className="font-serif text-4xl md:text-5xl">{data.final.q}</h2></Big>
-        {st.showAnswer ? <div className="flip mt-5 card !bg-gold-500 p-6 text-center font-display text-5xl">{data.final.a}</div> : null}
+        {st.showAnswer ? <div className="flip mt-5 card !bg-cran-600 !text-white p-6 text-center font-display text-5xl">{data.final.a}</div> : null}
         <p className="text-center mt-4 text-cream-200/80">Teams write a wager first. Use + / − on the scoreboard to settle it.</p>
         <Controls>
           {!st.showAnswer && <button className="btn btn-gold text-lg" onClick={onReveal}>Reveal answer</button>}
@@ -134,7 +134,7 @@ export function BoardStage({ st, data, onPick, onBack, onRight, onWrong, onRevea
       <div>
         <p className="text-center font-semibold text-gold-300 mb-3 text-xl">{c.name} · {q.value}</p>
         <Big><h2 className="font-serif text-4xl md:text-5xl leading-tight">{q.q}</h2></Big>
-        {st.showAnswer && <div className="flip mt-5 card !bg-gold-500 p-6 text-center font-display text-4xl md:text-5xl" data-testid="answer">{q.a}</div>}
+        {st.showAnswer && <div className="flip mt-5 card !bg-cran-600 !text-white p-6 text-center font-display text-4xl md:text-5xl" data-testid="answer">{q.a}</div>}
         <BuzzPanel st={st} value={q.value} onRight={onRight} onWrong={onWrong} onReopen={onReopen} />
         <Controls>
           {!st.showAnswer && <button className="btn btn-ghost" onClick={onReveal}>Reveal answer</button>}
@@ -159,7 +159,7 @@ export function BoardStage({ st, data, onPick, onBack, onRight, onWrong, onRevea
             const used = st.used.includes(`${ci}-${qi}`);
             return (
               <button key={`${ci}-${qi}`} disabled={used} onClick={() => onPick(ci, qi)} data-testid={`tile-${ci}-${qi}`}
-                className={`rounded-xl border-2 font-block text-2xl md:text-4xl py-3 md:py-5 transition ${used ? "border-white/10 text-white/15 bg-black/10" : "border-gold-500 text-gold-400 bg-pine-900/60 hover:bg-gold-500 hover:text-ink"}`}>
+                className={`rounded-xl border-2 font-block text-2xl md:text-4xl py-3 md:py-5 transition ${used ? "border-white/10 text-white/15 bg-black/10" : "border-white/40 text-white bg-pine-800/80 hover:bg-cran-600 hover:border-white hover:text-white"}`}>
                 {used ? "" : q.value}
               </button>
             );
@@ -183,7 +183,7 @@ export function BuzzStage({ st, data, onRight, onWrong, onReveal, onNext, onReop
         <h2 className={q.big ? "text-7xl md:text-8xl leading-snug" : "font-serif text-4xl md:text-5xl leading-tight"}>{q.q}</h2>
         {q.hint && <p className="mt-4 text-xl italic text-ink/60 font-serif">{q.hint}</p>}
       </Big>
-      {st.showAnswer && <div className="flip mt-5 card !bg-gold-500 p-6 text-center font-display text-4xl md:text-5xl" data-testid="answer">{q.a}</div>}
+      {st.showAnswer && <div className="flip mt-5 card !bg-cran-600 !text-white p-6 text-center font-display text-4xl md:text-5xl" data-testid="answer">{q.a}</div>}
       <BuzzPanel st={st} value={q.points ?? 100} onRight={onRight} onWrong={onWrong} onReopen={onReopen} />
       <Controls>
         {!st.showAnswer && <button className="btn btn-ghost" onClick={onReveal}>Reveal answer</button>}
@@ -216,11 +216,11 @@ export function TopStage({ st, data, onReveal, onStrike, onBank, onNext, onReope
           const open = st.revealed.includes(k);
           if (!a) return <div key={k} className="rounded-2xl bg-black/20 border border-white/5 h-16 md:h-20" />;
           return open ? (
-            <div key={k} className="flip rounded-2xl bg-gold-500 text-ink flex items-center justify-between px-5 h-16 md:h-20 text-xl md:text-3xl font-bold uppercase">
-              <span>{a.text}</span><span className="font-block bg-ink text-gold-400 rounded-xl px-3 py-1">{a.points}</span>
+            <div key={k} className="flip rounded-2xl bg-cran-600 text-white flex items-center justify-between px-5 h-16 md:h-20 text-xl md:text-3xl font-bold uppercase border-2 border-white/40">
+              <span>{a.text}</span><span className="font-block bg-white text-cran-700 rounded-xl px-3 py-1">{a.points}</span>
             </div>
           ) : (
-            <button key={k} onClick={() => onReveal(k)} data-testid={`ans-${k}`} className="rounded-2xl bg-pine-800 border-2 border-gold-500 text-gold-400 font-block text-3xl h-16 md:h-20 hover:bg-pine-700">{k + 1}</button>
+            <button key={k} onClick={() => onReveal(k)} data-testid={`ans-${k}`} className="rounded-2xl bg-pine-800 border-2 border-white/40 text-white font-block text-3xl h-16 md:h-20 hover:bg-cran-600 hover:border-white transition">{k + 1}</button>
           );
         })}
       </div>
