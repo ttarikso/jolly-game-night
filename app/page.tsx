@@ -9,6 +9,7 @@ import {
   RiGridFill,
   RiTrophyLine,
   RiNotificationBadgeLine,
+  RiPlayCircleLine,
 } from "@remixicon/react";
 import { Header, Logo, Stage } from "@/components/ui";
 import { Chip } from "@/components/base/badges/chip";
@@ -46,6 +47,9 @@ export default function Home() {
       <Header
         right={
           <>
+            <Link href="/demo" className="btn btn-cran text-sm">
+              <RiPlayCircleLine className="size-4" /> Try Live Demo
+            </Link>
             <Link href="/join" className="btn btn-ghost text-sm">
               <RiSmartphoneLine className="size-4" /> Join with PIN
             </Link>
@@ -70,6 +74,9 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
             <Link href="/redeem" className="btn btn-gold text-base px-7 py-3.5 shadow-lg">
               <RiKey2Line className="size-5" /> I bought it on Etsy · Activate
+            </Link>
+            <Link href="/demo" className="btn btn-cran text-base px-7 py-3.5 shadow-lg">
+              <RiPlayCircleLine className="size-5" /> Try Interactive Demo (Free)
             </Link>
             <Link href="/join" className="btn btn-ghost text-base px-7 py-3.5">
               <RiSmartphoneLine className="size-5" /> I have a game PIN
