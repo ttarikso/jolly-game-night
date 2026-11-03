@@ -2,7 +2,7 @@ import type { Format } from "./types";
 
 /* Messages between the host screen (authoritative) and player phones. */
 
-export interface PPlayer { id: string; name: string; team: number | null; score: number }
+export interface PPlayer { id: string; name: string; team: number | null; score: number; avatar?: string }
 export interface PTeam { name: string; score: number }
 
 export type Phase = "lobby" | "q" | "reveal" | "scores" | "board" | "final" | "end";
@@ -24,14 +24,14 @@ export interface PublicState {
 
 export type ToHost =
   | { type: "hello" }
-  | { type: "join"; pid: string; name: string; team: number | null }
+  | { type: "join"; pid: string; name: string; team: number | null; avatar?: string }
   | { type: "answer"; pid: string; qKey: string; choice: number }
   | { type: "buzz"; pid: string; qKey: string };
 
 export type ToPlayer = { type: "state"; state: PublicState } | { type: "kick"; pid: string };
 
-export const TEAM_NAMES = ["Team Holly", "Team Ivy", "Team Tinsel", "Team Snowflake"];
-export const TEAM_COLORS = ["#B5283B", "#22694F", "#E8B850", "#2B4C8C"];
+export const TEAM_NAMES = ["Team Holly 🎄", "Team Rudolph 🦌", "Team Gingerbread 🍪", "Team Jingle 🔔"];
+export const TEAM_COLORS = ["#B5283B", "#186A4B", "#D9384A", "#0E4D36"];
 
 export function mcPoints(correct: boolean, ms: number, timeSec: number) {
   if (!correct) return 0;

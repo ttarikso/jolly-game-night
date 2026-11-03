@@ -14,6 +14,8 @@ export const GEN_TOPICS: GenTopic[] = [
   { id: "movies", label: "Christmas Movies & TV", emoji: "🎬", desc: "Home Alone, Elf, The Grinch, Die Hard & holiday classics", formats: ["mc", "board"] },
   { id: "music", label: "Holiday Hits & Carols", emoji: "🎵", desc: "Pop Christmas anthems, carols & festive lyrics", formats: ["mc", "board"] },
   { id: "truefalse", label: "True or False: Holiday Hoaxes", emoji: "🤔", desc: "Fast 50/50 Fact or Elf Fiction questions", formats: ["mc"] },
+  { id: "would_you_rather", label: "Would You Rather: Holiday Edition", emoji: "⚖️", desc: "Hilarious 50/50 Christmas dilemmas & party icebreakers", formats: ["mc"] },
+  { id: "most_likely", label: "Party Poll & Holiday Habits", emoji: "🎭", desc: "Fun group questions about holiday habits & secret confessions", formats: ["mc"] },
   { id: "kids", label: "Kids & Family Friendly", emoji: "🦌", desc: "Easy, cheerful questions for all ages", formats: ["mc"] },
   { id: "party", label: "Adults & Office Party", emoji: "🥂", desc: "Festive drinks, ugly sweaters & funny holiday habits", formats: ["mc", "top"] },
   { id: "emoji_movies", label: "Emoji Christmas Movies", emoji: "🍿", desc: "Guess the Christmas movie from the emojis", formats: ["buzzer"] },
@@ -401,6 +403,103 @@ const MC_BANK: RawMc[] = [
     wrongs: ["December 23rd", "Boxing Day", "December 1st"],
     time: 20,
     note: "Social media data revealed a huge annual spike two weeks before December 25th — right before gift-buying!"
+  },
+
+  // WOULD YOU RATHER: HOLIDAY DILEMMAS
+  {
+    topic: "would_you_rather",
+    q: "WOULD YOU RATHER: Have to wear a jingle-bell elf hat to work/school for all of December, OR listen to ONLY 'All I Want for Christmas Is You' on repeat for 48 hours?",
+    right: "Wear the jingle-bell elf hat all December 🔔",
+    wrongs: ["48 hours of non-stop Mariah Carey 🎤"],
+    time: 20,
+    note: "In holiday polls, 62% of people choose the jingle-bell hat over 48 hours of the same song!"
+  },
+  {
+    topic: "would_you_rather",
+    q: "WOULD YOU RATHER: Eat a bowl of Buddy the Elf's spaghetti with maple syrup & M&Ms, OR drink a glass of warm eggnog mixed with pickle juice?",
+    right: "Buddy the Elf's maple-syrup spaghetti 🍝",
+    wrongs: ["Pickle-juice eggnog 🥒"],
+    time: 20,
+    note: "Sweet pasta beats sour eggnog by a landslide!"
+  },
+  {
+    topic: "would_you_rather",
+    q: "WOULD YOU RATHER: Wrap 100 awkwardly-shaped bicycles with no Scotch tape, OR untangle a 500-foot ball of knotted Christmas tree lights?",
+    right: "Untangle the 500-foot ball of Christmas lights 💡",
+    wrongs: ["Wrap 100 bicycles with no tape 🚲"],
+    time: 20,
+    note: "The ultimate test of Christmas Eve patience!"
+  },
+  {
+    topic: "would_you_rather",
+    q: "WOULD YOU RATHER: Spend Christmas Eve trapped in an airport like Kevin's mom in Home Alone, OR trapped at Nakatomi Plaza with John McClane in Die Hard?",
+    right: "Road-trip in a polka van like Kevin's mom 🚐",
+    wrongs: ["Crawl through air ducts at Nakatomi Plaza 🏢"],
+    time: 20,
+    note: "Gus Polinski and the Kenosha Kickers will get you home!"
+  },
+  {
+    topic: "would_you_rather",
+    q: "WOULD YOU RATHER: Get one amazing $500 gift you asked for, OR 20 mysterious $25 surprise gifts wrapped under the tree?",
+    right: "One amazing $500 dream gift 🎁",
+    wrongs: ["20 mysterious $25 surprise boxes 📦"],
+    time: 20,
+    note: "Unwrapping 20 boxes is fun, but the dream gift wins!"
+  },
+  {
+    topic: "would_you_rather",
+    q: "WOULD YOU RATHER: Live at the freezing North Pole with Santa's elves, OR on Mount Crumpit with the Grinch and his dog Max?",
+    right: "Cozy North Pole workshop with the elves 🧝",
+    wrongs: ["Mount Crumpit cave with the Grinch & Max 🐕"],
+    time: 20
+  },
+
+  // PARTY POLL & HOLIDAY HABITS
+  {
+    topic: "most_likely",
+    q: "According to holiday surveys, when do most people ACTUALLY finish wrapping their last Christmas present?",
+    right: "Late on Christmas Eve night (after 10 PM!)",
+    wrongs: ["Two weeks before Christmas", "On December 1st", "One week before Christmas"],
+    time: 20,
+    note: "Over 54% of people admit to panic-wrapping on Christmas Eve!"
+  },
+  {
+    topic: "most_likely",
+    q: "What percentage of people admit they have secretly peeked at their hidden Christmas presents before December 25th?",
+    right: "Over 65% of people!",
+    wrongs: ["Only 10%", "About 25%", "Less than 5%"],
+    time: 20,
+    note: "Closets and beds are never safe in December!"
+  },
+  {
+    topic: "most_likely",
+    q: "When someone receives an ugly or unwanted Christmas gift from a relative, what do 78% of people do immediately?",
+    right: "Smile dramatically and say 'OMG I was just looking for one of these!'",
+    wrongs: ["Ask for the gift receipt right away", "Leave it under the tree", "Hand it back politely"],
+    time: 20,
+    note: "Oscar-worthy acting happens in every living room on Christmas morning!"
+  },
+  {
+    topic: "most_likely",
+    q: "What is the #1 thing people secretly do with a fruitcake they receive for Christmas?",
+    right: "Re-gift it or leave it unopened until February",
+    wrongs: ["Eat it all in one sitting", "Freeze it for summer", "Turn it into pudding"],
+    time: 20,
+    note: "Comedian Johnny Carson famously joked: 'There is only one fruitcake in the entire world, and people keep sending it to each other!'"
+  },
+  {
+    topic: "most_likely",
+    q: "On Christmas Day, at what time does the average family member put on sweatpants or pajamas and refuse to move from the couch?",
+    right: "Right after Christmas dinner (around 4:30 PM)",
+    wrongs: ["After midnight", "Only at bedtime", "Never — everyone stays dressed up all night"],
+    time: 20
+  },
+  {
+    topic: "most_likely",
+    q: "What is the #1 white lie parents tell their kids in December to get them to behave?",
+    right: "'Santa's Elf is watching right now and texting the North Pole!'",
+    wrongs: ["'The reindeer ate all the candy'", "'The TV doesn't work when it snows'", "'Bedtime is 6 PM in winter'"],
+    time: 20
   }
 ];
 

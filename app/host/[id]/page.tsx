@@ -5,6 +5,7 @@ import QRCode from "qrcode";
 import { Logo, Stage } from "@/components/ui";
 import { api, openRoom, Room, siteUrl } from "@/lib/realtime";
 import { sfx, setMuted } from "@/lib/sound";
+import { AvatarBadge } from "@/lib/avatars";
 import type { Game, McData, BoardData, TopData, BuzzerData } from "@/lib/types";
 import { PublicState, PPlayer, PTeam, Phase, ToHost, TEAM_NAMES, mcPoints } from "@/lib/protocol";
 import { McStage, BoardStage, BuzzStage, TopStage, Scoreboard, Podium } from "@/components/host";
@@ -89,9 +90,10 @@ export default function HostPage({ params }: { params: Promise<{ id: string }> }
       if (m.type === "join") {
         const name = String(m.name || "Player").slice(0, 24);
         const prev = s.players[m.pid];
+        const avatar = String(m.avatar || prev?.avatar || "santa");
         const team = s.teamsMode ? Math.min(Math.max(0, Number(m.team ?? prev?.team ?? 0)), s.teams.length - 1) : null;
         if (!prev) sfx.join();
-        return { ...s, players: { ...s.players, [m.pid]: { id: m.pid, name, team, score: prev?.score ?? 0 } } };
+        return { ...s, players: { ...s.players, [m.pid]: { id: m.pid, name, avatar, team, score: prev?.score ?? 0 } } };
       }
       if (!s.players[m.pid] || m.qKey !== s.qKey) return s;
       if (m.type === "answer" && s.phase === "q" && g.format === "mc") {
@@ -381,10 +383,14 @@ function Lobby({ st, game, qr, joinUrl, players, onTeams, onStart }: {
           </div>
         )}
         <p className="mt-6 text-cream-200/80"><b className="text-gold-400 text-2xl font-block">{players.length}</b> player{players.length === 1 ? "" : "s"} joined</p>
-        <div className="mt-3 flex flex-wrap gap-2 min-h-16">
+        <div className="mt-4 flex flex-wrap gap-3 min-h-20">
           {players.map((p) => (
-            <span key={p.id} className="pop rounded-full bg-white/10 border border-white/15 px-4 py-2 font-semibold">
-              {p.name}{st.teamsMode && p.team != null ? <span className="text-gold-400"> · {st.teams[p.team]?.name}</span> : null}
+            <span key={p.id} className="pop inline-flex items-center gap-3 rounded-2xl bg-white/12 border border-white/20 pl-2 pr-5 py-2 font-semibold text-lg shadow-md backdrop-blur-sm">
+              <AvatarBadge id={p.avatar} size="md" />
+              <span>
+                {p.name}
+                {st.teamsMode && p.team != null ? <span className="text-gold-400"> · {st.teams[p.team]?.name}</span> : null}
+              </span>
             </span>
           ))}
         </div>

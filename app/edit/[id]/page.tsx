@@ -7,7 +7,13 @@ import type { Game, McData, BoardData, TopData, BuzzerData } from "@/lib/types";
 import { FORMAT_INFO } from "@/lib/types";
 import { McEditor, BoardEditor, TopEditor, BuzzerEditor } from "@/components/editors";
 
-const THEMES = [["pine", "Pine"], ["cranberry", "Cranberry"], ["midnight", "Midnight"], ["teal", "Teal"], ["burgundy", "Burgundy"]];
+const THEMES = [
+  ["pine", "🌲 Pine Forest Green"],
+  ["cranberry", "🎅 Santa Suit Red"],
+  ["midnight", "🎄 Holly Green & Berry"],
+  ["burgundy", "🍷 Velvet Christmas Red"],
+  ["teal", "🌿 Evergreen & Gold"],
+];
 
 export default function EditPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

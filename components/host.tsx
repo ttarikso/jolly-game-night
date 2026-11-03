@@ -4,6 +4,7 @@ import type { HostState } from "@/app/host/[id]/page";
 import type { Game, McData, BoardData, TopData, BuzzerData } from "@/lib/types";
 import type { PPlayer } from "@/lib/protocol";
 import { TEAM_COLORS } from "@/lib/protocol";
+import { AvatarBadge } from "@/lib/avatars";
 import { OPTION_STYLE } from "./ui";
 
 const name = (st: HostState, pid?: string) => (pid && st.players[pid]?.name) || "";
@@ -26,10 +27,13 @@ function BuzzPanel({ st, value, onRight, onWrong, onReopen }: { st: HostState; v
   return (
     <div className="mt-5 text-center" aria-live="polite">
       {first ? (
-        <div className="pop inline-flex flex-col items-center rounded-3xl bg-gold-500 text-ink px-10 py-5">
-          <span className="label !text-ink/70">Buzzed first</span>
-          <span className="font-display text-5xl" data-testid="first-buzz">{name(st, first)}</span>
-          {teamOf(st, first) && <span className="font-semibold">{teamOf(st, first)}</span>}
+        <div className="pop inline-flex items-center gap-4 rounded-3xl bg-gold-500 text-ink px-8 py-4 shadow-xl">
+          <AvatarBadge id={st.players[first]?.avatar} size="lg" />
+          <div className="flex flex-col items-start text-left">
+            <span className="label !text-ink/70">Buzzed first</span>
+            <span className="font-display text-4xl md:text-5xl" data-testid="first-buzz">{name(st, first)}</span>
+            {teamOf(st, first) && <span className="font-semibold">{teamOf(st, first)}</span>}
+          </div>
         </div>
       ) : st.buzzOpen ? (
         <p className="pulse text-2xl font-serif text-gold-300">Buzzers are open…</p>
@@ -56,8 +60,12 @@ export function McStage({ st, data, players, onReveal, onNext }: { st: HostState
         <h2 className="font-display text-5xl text-pine-800">Leaderboard</h2>
         <ol className="mt-6 space-y-2 max-w-2xl mx-auto">
           {top.map((p, i) => (
-            <li key={p.id} className={`flex justify-between items-center rounded-2xl px-6 py-3 text-2xl font-bold ${i === 0 ? "bg-gold-500" : "bg-cream-200"}`}>
-              <span>{i + 1}. {p.name}</span>
+            <li key={p.id} className={`flex justify-between items-center rounded-2xl px-5 py-3 text-2xl font-bold ${i === 0 ? "bg-gold-500" : "bg-cream-200"}`}>
+              <span className="flex items-center gap-3">
+                <span>{i + 1}.</span>
+                <AvatarBadge id={p.avatar} size="sm" />
+                <span>{p.name}</span>
+              </span>
               <span className="font-block">{p.score}{st.gained[p.id] ? <span className="text-pine-700 text-base ml-2">+{st.gained[p.id]}</span> : null}</span>
             </li>
           ))}
@@ -241,8 +249,8 @@ export function TopStage({ st, data, onReveal, onStrike, onBank, onNext, onReope
 // ------------------------------------------------------------------ scoreboard + podium
 export function Scoreboard({ st, players, onAdjust, step }: { st: HostState; players: PPlayer[]; onAdjust: (k: "team" | "player", key: number | string, pts: number) => void; step: number }) {
   const rows = st.teamsMode
-    ? st.teams.map((t, i) => ({ key: i as number | string, label: t.name, score: t.score, color: TEAM_COLORS[i], sub: players.filter((p) => p.team === i).length + " players" }))
-    : players.slice().sort((a, b) => b.score - a.score).slice(0, 12).map((p) => ({ key: p.id as number | string, label: p.name, score: p.score, color: "", sub: "" }));
+    ? st.teams.map((t, i) => ({ key: i as number | string, label: t.name, score: t.score, color: TEAM_COLORS[i], avatar: undefined as string | undefined, sub: players.filter((p) => p.team === i).length + " players" }))
+    : players.slice().sort((a, b) => b.score - a.score).slice(0, 12).map((p) => ({ key: p.id as number | string, label: p.name, score: p.score, color: "", avatar: p.avatar, sub: "" }));
   return (
     <aside className="rounded-2xl bg-black/25 border border-white/10 p-4 self-start lg:mt-10">
       <h3 className="label !text-gold-300 mb-3">Scores</h3>
@@ -251,7 +259,11 @@ export function Scoreboard({ st, players, onAdjust, step }: { st: HostState; pla
         {rows.map((r) => (
           <li key={r.key} className="rounded-xl bg-white/5 px-3 py-2">
             <div className="flex items-center justify-between gap-2">
-              <span className="font-semibold truncate flex items-center gap-2">{r.color && <span className="w-3 h-3 rounded-full" style={{ background: r.color }} />}{r.label}</span>
+              <span className="font-semibold truncate flex items-center gap-2">
+                {r.color && <span className="w-3 h-3 rounded-full" style={{ background: r.color }} />}
+                {!st.teamsMode && <AvatarBadge id={r.avatar} size="xs" />}
+                {r.label}
+              </span>
               <span className="font-block text-xl text-gold-400" data-testid={`score-${r.label}`}>{r.score}</span>
             </div>
             <div className="flex items-center justify-between mt-1">
@@ -270,15 +282,16 @@ export function Scoreboard({ st, players, onAdjust, step }: { st: HostState; pla
 
 export function Podium({ st, game, onAgain }: { st: HostState; game: Game; onAgain: () => void }) {
   const list = st.teamsMode
-    ? st.teams.map((t, i) => ({ k: String(i), label: t.name, score: t.score }))
-    : Object.values(st.players).map((p) => ({ k: p.id, label: p.name, score: p.score }));
+    ? st.teams.map((t, i) => ({ k: String(i), label: t.name, score: t.score, avatar: undefined as string | undefined }))
+    : Object.values(st.players).map((p) => ({ k: p.id, label: p.name, score: p.score, avatar: p.avatar }));
   const sorted = list.sort((a, b) => b.score - a.score);
   const [a, b, c] = sorted;
   const col = (x: typeof a | undefined, h: string, medal: string, delay: string) =>
     x ? (
       <div className="flex flex-col items-center justify-end pop" style={{ animationDelay: delay }}>
-        <span className="text-5xl">{medal}</span>
-        <span className="font-display text-3xl md:text-4xl text-center mt-2">{x.label}</span>
+        <span className="text-4xl mb-1">{medal}</span>
+        {x.avatar && <AvatarBadge id={x.avatar} size="lg" className="mb-1" />}
+        <span className="font-display text-3xl md:text-4xl text-center mt-1">{x.label}</span>
         <span className="font-block text-gold-400 text-2xl">{x.score}</span>
         <div className={`mt-3 w-36 md:w-48 rounded-t-2xl bg-gold-500/90 ${h}`} />
       </div>

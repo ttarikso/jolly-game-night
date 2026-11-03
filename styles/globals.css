@@ -1027,15 +1027,27 @@ input[type="search"]::-webkit-search-cancel-button {
 /* ---------------------------------------------------------------------------
  * Jolly Game Night Stage, Themes & Polished Controls (BoardUI Enhanced)
  * --------------------------------------------------------------------------- */
-.font-display { font-weight: 800; letter-spacing: -0.02em; }
-.font-serif   { font-weight: 700; letter-spacing: -0.015em; }
-.font-block   { font-weight: 800; letter-spacing: -0.01em; }
+.font-display {
+  font-family: var(--font-festive), var(--font-heading), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.font-serif {
+  font-family: var(--font-heading), var(--font-inter), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.font-block {
+  font-family: var(--font-heading), var(--font-inter), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
 
-.theme-pine      { --bg1: #0E3B2E; --bg2: #06201A; --glow: rgba(232,184,80,.18); }
-.theme-cranberry { --bg1: #8E1B2C; --bg2: #3A0812; --glow: rgba(240,201,110,.18); }
-.theme-midnight  { --bg1: #1E3566; --bg2: #0A1228; --glow: rgba(180,210,255,.16); }
-.theme-teal      { --bg1: #10595C; --bg2: #052426; --glow: rgba(232,184,80,.16); }
-.theme-burgundy  { --bg1: #6A1E2E; --bg2: #2A0A12; --glow: rgba(246,220,156,.16); }
+.theme-pine      { --bg1: #114B36; --bg2: #062117; --glow: rgba(232,184,80,.22); }
+.theme-cranberry { --bg1: #9E1B2E; --bg2: #3F0711; --glow: rgba(240,201,110,.22); }
+.theme-midnight  { --bg1: #164A37; --bg2: #3A0A14; --glow: rgba(220,58,76,.22); }
+.theme-teal      { --bg1: #185A40; --bg2: #07261A; --glow: rgba(240,201,110,.20); }
+.theme-burgundy  { --bg1: #821626; --bg2: #08281C; --glow: rgba(246,220,156,.22); }
 
 .stage {
   min-height: 100dvh;
