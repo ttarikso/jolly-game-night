@@ -5,6 +5,9 @@
 :root { color-scheme: dark; }
 html, body { min-height: 100%; }
 body { background: #06201A; color: #FBF3E4; -webkit-tap-highlight-color: transparent; }
+.font-display { font-weight: 800; letter-spacing: -0.02em; }
+.font-serif { font-weight: 700; letter-spacing: -0.01em; }
+.font-block { font-weight: 800; letter-spacing: -0.01em; }
 
 .theme-pine     { --bg1: #0E3B2E; --bg2: #06201A; --glow: rgba(232,184,80,.18); }
 .theme-cranberry{ --bg1: #8E1B2C; --bg2: #3A0812; --glow: rgba(240,201,110,.18); }
