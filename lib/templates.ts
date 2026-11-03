@@ -1276,6 +1276,342 @@ export const TEMPLATES: Template[] = [
     }
    ]
   }
+ },
+ {
+  "slug": "true-or-false-holiday-hoaxes",
+  "title": "True or False: Holiday Hoaxes",
+  "format": "mc",
+  "teams": false,
+  "theme": "cranberry",
+  "data": {
+   "questions": [
+    {
+     "q": "TRUE or FALSE: The image of Santa Claus in a red suit was invented by Coca-Cola in the 1930s.",
+     "options": ["TRUE — Santa wore green before 1931", "FALSE — Santa wore red decades before Coca-Cola"],
+     "correct": 1,
+     "time": 15,
+     "note": "Illustrator Thomas Nast and White Rock Beverages showed red-suited Santa long before Coca-Cola's 1931 campaign!"
+    },
+    {
+     "q": "TRUE or FALSE: The song 'Jingle Bells' never once mentions the word 'Christmas'.",
+     "options": ["TRUE — Not a single 'Christmas' in the lyrics!", "FALSE — It says 'Merry Christmas' in verse 2"],
+     "correct": 0,
+     "time": 15,
+     "note": "It was originally written in 1857 for Thanksgiving as 'One Horse Open Sleigh'!"
+    },
+    {
+     "q": "TRUE or FALSE: Real reindeer eyeballs change colour from gold in summer to deep blue in winter.",
+     "options": ["TRUE — To help them see in Arctic darkness", "FALSE — Their eyes stay brown all year"],
+     "correct": 0,
+     "time": 15,
+     "note": "The reflective layer behind their retinas shifts in winter to capture 1,000x more light!"
+    },
+    {
+     "q": "TRUE or FALSE: Artificial Christmas trees were first made by a company that manufactured toilet brushes.",
+     "options": ["TRUE — Using the exact same green-dyed bristles", "FALSE — They were made by a feather-duster factory"],
+     "correct": 0,
+     "time": 15,
+     "note": "In the 1930s, the Addis Brush Company used its toilet-brush machinery to create the first artificial trees!"
+    },
+    {
+     "q": "TRUE or FALSE: Celebrating Christmas was once outlawed in Boston, with a 5-shilling fine.",
+     "options": ["TRUE — Banned from 1659 to 1681", "FALSE — Boston held America's first Christmas parade"],
+     "correct": 0,
+     "time": 15,
+     "note": "The Puritans banned Christmas celebrations for 22 years!"
+    },
+    {
+     "q": "TRUE or FALSE: All of Santa's sleigh-pulling reindeer with antlers on Christmas Eve must be female.",
+     "options": ["TRUE — Male reindeer drop their antlers before Christmas", "FALSE — Only male reindeer grow antlers"],
+     "correct": 0,
+     "time": 15,
+     "note": "Male reindeer shed their antlers in late autumn, while females keep theirs through winter!"
+    },
+    {
+     "q": "TRUE or FALSE: In Norway, families hide their brooms on Christmas Eve so witches can't steal them.",
+     "options": ["TRUE — It's a centuries-old Norwegian tradition", "FALSE — That's a Halloween tradition in Ireland"],
+     "correct": 0,
+     "time": 15,
+     "note": "Many Norwegian households still tuck their brooms away on December 24th!"
+    },
+    {
+     "q": "TRUE or FALSE: Mariah Carey's 'All I Want for Christmas Is You' is the best-selling physical single of all time.",
+     "options": ["TRUE — Over 60 million CDs sold", "FALSE — Bing Crosby's 'White Christmas' holds the record"],
+     "correct": 1,
+     "time": 15,
+     "note": "Bing Crosby's 'White Christmas' sold ~50 million physical copies!"
+    }
+   ]
+  }
+ },
+ {
+  "slug": "christmas-movie-blockbusters",
+  "title": "Ultimate Christmas Movie Quiz",
+  "format": "mc",
+  "teams": false,
+  "theme": "midnight",
+  "data": {
+   "questions": [
+    {
+     "q": "In Home Alone, what do burglars Harry and Marv call themselves?",
+     "options": ["The Wet Bandits", "The Sticky Fingers", "The Snow Sneaks", "The Chimney Sweeps"],
+     "correct": 0,
+     "time": 20,
+     "note": "In Home Alone 2, Marv rebrands them 'The Sticky Bandits'!"
+    },
+    {
+     "q": "In Elf, what is the FIRST rule of 'The Code of The Elves'?",
+     "options": ["Treat every day like Christmas", "Sing loud for all to hear", "Always eat maple syrup", "Believe in Santa"],
+     "correct": 0,
+     "time": 20,
+     "note": "Rule #1: Treat every day like Christmas!"
+    },
+    {
+     "q": "In National Lampoon's Christmas Vacation, what is Clark Griswold's disappointing Christmas bonus?",
+     "options": ["Membership in the Jelly of the Month Club", "A frozen turkey voucher", "A $10 gift card", "A box of fruitcake"],
+     "correct": 0,
+     "time": 20,
+     "note": "'The gift that keeps on giving the whole year!'"
+    },
+    {
+     "q": "In The Polar Express, what word does the conductor punch into the hero boy's ticket?",
+     "options": ["BELIEVE", "MAGIC", "WONDER", "COURAGE"],
+     "correct": 0,
+     "time": 20
+    },
+    {
+     "q": "In How the Grinch Stole Christmas, what is the name of the Grinch's loyal dog?",
+     "options": ["Max", "Barnaby", "Rex", "Toby"],
+     "correct": 0,
+     "time": 20
+    },
+    {
+     "q": "In A Christmas Story, what gift does Ralphie want more than anything?",
+     "options": ["A Red Ryder BB gun", "An electric train set", "A pair of ice skates", "A sled named Rosebud"],
+     "correct": 0,
+     "time": 20,
+     "note": "'You'll shoot your eye out, kid!'"
+    },
+    {
+     "q": "In Jingle All the Way, what action figure is Howard Langston desperately trying to buy on Christmas Eve?",
+     "options": ["Turbo Man", "Robo Ranger", "Power Max", "Ultra Guy"],
+     "correct": 0,
+     "time": 20
+    },
+    {
+     "q": "In Die Hard, what is the name of the Los Angeles skyscraper where the Christmas Eve party is held?",
+     "options": ["Nakatomi Plaza", "Gruber Tower", "Pacific Plaza", "Century Tower"],
+     "correct": 0,
+     "time": 20
+    }
+   ]
+  }
+ },
+ {
+  "slug": "santas-workshop-riddles",
+  "title": "Santa's Workshop Riddles",
+  "format": "buzzer",
+  "teams": true,
+  "theme": "teal",
+  "data": {
+   "questions": [
+    {
+     "q": "I drop from the sky and I'm much prettier than rain, yet no two pieces of me will ever look the same. What am I?",
+     "a": "A snowflake",
+     "hint": "Winter weather",
+     "points": 100
+    },
+    {
+     "q": "If Santa's 8 reindeer each eat 2 carrots before takeoff, and Rudolph eats 3, how many carrots did Santa eat?",
+     "a": "Zero! (Santa eats cookies and mince pies, not carrots!)",
+     "hint": "Listen carefully to the question!",
+     "points": 150
+    },
+    {
+     "q": "You can catch me easily in December, especially without a scarf, but you can never throw me. What am I?",
+     "a": "A cold!",
+     "hint": "Achoo!",
+     "points": 100
+    },
+    {
+     "q": "What travels all around the world on a single night without ever leaving the corner of an envelope?",
+     "a": "A Christmas postage stamp",
+     "hint": "On your holiday cards",
+     "points": 150
+    },
+    {
+     "q": "I wear a green coat all year round, even in the snow, and people bring me inside to dress me in gold and lights. What am I?",
+     "a": "A Christmas tree",
+     "hint": "In the living room",
+     "points": 100
+    },
+    {
+     "q": "I'm shaped like a shepherd's hook, striped red and white, and get smaller the more you enjoy me. What am I?",
+     "a": "A candy cane",
+     "hint": "Sweet peppermint treat",
+     "points": 100
+    },
+    {
+     "q": "What has needles by the thousands, stands in your living room, but cannot sew a single stitch?",
+     "a": "A pine / fir Christmas tree",
+     "hint": "Watch the floor when it dries out!",
+     "points": 100
+    },
+    {
+     "q": "Which of Santa's reindeer has the worst manners at the dinner table?",
+     "a": "Rude-olph!",
+     "hint": "Pun intended",
+     "points": 150
+    }
+   ]
+  }
+ },
+ {
+  "slug": "naughty-or-nice-family-feud",
+  "title": "Naughty or Nice: Holiday Feud",
+  "format": "top",
+  "teams": true,
+  "theme": "burgundy",
+  "data": {
+   "rounds": [
+    {
+     "q": "Name something people pretend to be excited about unwrapping at Christmas",
+     "answers": [
+      { "text": "Socks / Underwear", "points": 36 },
+      { "text": "An Ugly Sweater", "points": 24 },
+      { "text": "Bath / Soap Set", "points": 16 },
+      { "text": "Fruitcake", "points": 11 },
+      { "text": "A Diet / Self-Help Book", "points": 8 },
+      { "text": "Deodorant", "points": 5 }
+     ]
+    },
+    {
+     "q": "Name something that always causes a family argument on Christmas Day",
+     "answers": [
+      { "text": "Board Games / Monopoly", "points": 32 },
+      { "text": "Politics at Dinner", "points": 25 },
+      { "text": "What to Watch on TV", "points": 17 },
+      { "text": "Who Washes the Dishes", "points": 12 },
+      { "text": "Untangling the Lights", "points": 8 },
+      { "text": "When to Open Presents", "points": 6 }
+     ]
+    },
+    {
+     "q": "Name a reason Santa might get stuck in the chimney",
+     "answers": [
+      { "text": "Ate Too Many Cookies", "points": 44 },
+      { "text": "Chimney Is Too Narrow", "points": 23 },
+      { "text": "Toy Sack Is Too Heavy", "points": 15 },
+      { "text": "Someone Lit the Fire", "points": 10 },
+      { "text": "His Suit Got Snagged", "points": 8 }
+     ]
+    },
+    {
+     "q": "Name something a pet dog or cat ruins at Christmas",
+     "answers": [
+      { "text": "The Christmas Tree / Ornaments", "points": 42 },
+      { "text": "Wrapping Paper & Ribbons", "points": 22 },
+      { "text": "The Turkey / Dinner", "points": 16 },
+      { "text": "Cookies Left for Santa", "points": 11 },
+      { "text": "Presents Under the Tree", "points": 9 }
+     ]
+    },
+    {
+     "q": "Name something you always run out of on Christmas Eve",
+     "answers": [
+      { "text": "Scotch Tape", "points": 40 },
+      { "text": "Wrapping Paper", "points": 28 },
+      { "text": "AA / AAA Batteries", "points": 17 },
+      { "text": "Patience / Energy", "points": 9 },
+      { "text": "Eggnog / Wine", "points": 6 }
+     ]
+    },
+    {
+     "q": "Name a job at the North Pole that nobody wants",
+     "answers": [
+      { "text": "Cleaning Reindeer Stables", "points": 45 },
+      { "text": "Checking the Naughty List", "points": 20 },
+      { "text": "Untangling Christmas Lights", "points": 15 },
+      { "text": "Washing Santa's Sooty Suit", "points": 12 },
+      { "text": "Shovelling Snow", "points": 8 }
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "slug": "holiday-pop-culture-board",
+  "title": "Pop Culture & Toys Quiz Board",
+  "format": "board",
+  "teams": true,
+  "theme": "cranberry",
+  "data": {
+   "categories": [
+    {
+     "name": "90s & 00s Toys",
+     "questions": [
+      { "value": 100, "q": "Which red furry Sesame Street doll caused Christmas store stampedes in 1996 when it laughed?", "a": "Tickle Me Elmo" },
+      { "value": 200, "q": "Which owl-like robotic creature spoke 'Furbish' under millions of Christmas trees in 1998?", "a": "Furby" },
+      { "value": 300, "q": "Which tiny digital keychain pet needed constant feeding during Christmas break in 1997?", "a": "Tamagotchi" },
+      { "value": 400, "q": "Which bean-filled plush animals did people collect in the 90s thinking they'd be worth a fortune?", "a": "Beanie Babies" },
+      { "value": 500, "q": "Which motion-controlled Nintendo console was nearly impossible to find at Christmas 2006?", "a": "Nintendo Wii" }
+     ]
+    },
+    {
+     "name": "Jingle Jukebox",
+     "questions": [
+      { "value": 100, "q": "Who sings the 1994 mega-hit 'All I Want for Christmas Is You'?", "a": "Mariah Carey" },
+      { "value": 200, "q": "In 'Frosty the Snowman', what were Frosty's two eyes made out of?", "a": "Coal" },
+      { "value": 300, "q": "Which Canadian crooner is famous for emerging every November with his 'Christmas' album?", "a": "Michael Bublé" },
+      { "value": 400, "q": "Which 1984 charity supergroup recorded 'Do They Know It's Christmas?'?", "a": "Band Aid" },
+      { "value": 500, "q": "Which classic Christmas ballet features the 'Dance of the Sugar Plum Fairy'?", "a": "The Nutcracker" }
+     ]
+    },
+    {
+     "name": "Holiday Cinema",
+     "questions": [
+      { "value": 100, "q": "In Home Alone 2, which city does Kevin accidentally fly to?", "a": "New York City" },
+      { "value": 200, "q": "Which actor played 6 different roles in the 2004 animated film The Polar Express?", "a": "Tom Hanks" },
+      { "value": 300, "q": "Who played the live-action Grinch in the year 2000 film?", "a": "Jim Carrey" },
+      { "value": 400, "q": "In Elf, what toy terrifies Buddy every time he tests them on the assembly line?", "a": "A Jack-in-the-Box" },
+      { "value": 500, "q": "In It's a Wonderful Life, what is the name of George Bailey's guardian angel?", "a": "Clarence" }
+     ]
+    },
+    {
+     "name": "Festive Treats",
+     "questions": [
+      { "value": 100, "q": "What white, fluffy topping melts on top of hot cocoa?", "a": "Marshmallows" },
+      { "value": 200, "q": "What German spiced wine is served steaming hot at Christmas markets?", "a": "Glühwein (Mulled wine)" },
+      { "value": 300, "q": "Which French Christmas cake is rolled and frosted to look like a wooden log?", "a": "Bûche de Noël (Yule Log)" },
+      { "value": 400, "q": "What tiny green vegetable on the Christmas dinner plate do people either love or hate?", "a": "Brussels sprouts" },
+      { "value": 500, "q": "Which Mexican flower, bright red and green, is the official plant of Christmas?", "a": "Poinsettia" }
+     ]
+    }
+   ],
+   "final": {
+    "q": "In 'The Twelve Days of Christmas', how many total gifts are given altogether if you add up every single day?",
+    "a": "364 gifts"
+   }
+  }
+ },
+ {
+  "slug": "emoji-christmas-songs-characters",
+  "title": "Emoji Songs & Who Am I?",
+  "format": "buzzer",
+  "teams": false,
+  "theme": "pine",
+  "data": {
+   "questions": [
+    { "q": "🔔 🔔 🪨 🎸", "a": "Jingle Bell Rock", "hint": "Decode the Christmas song", "big": true, "points": 100 },
+    { "q": "💔 🎁 ⏮️ 🎄", "a": "Last Christmas (Wham!)", "hint": "Decode the Christmas song", "big": true, "points": 100 },
+    { "q": "💃 🕺 🔄 🎄", "a": "Rockin' Around the Christmas Tree", "hint": "Decode the Christmas song", "big": true, "points": 100 },
+    { "q": "👀 👩 💋 🎅", "a": "I Saw Mommy Kissing Santa Claus", "hint": "Decode the Christmas song", "big": true, "points": 100 },
+    { "q": "👵 💥 🦌 🎄", "a": "Grandma Got Run Over by a Reindeer", "hint": "Decode the Christmas song", "big": true, "points": 100 },
+    { "q": "1. I was raised at the North Pole by Papa Elf.\n2. I put maple syrup on my spaghetti.\n3. My dad works in the Empire State Building.", "a": "Buddy the Elf", "hint": "Who am I?", "points": 150 },
+    { "q": "1. I am a stingy Victorian businessman.\n2. My late partner was Jacob Marley.\n3. Three ghosts visit me on Christmas Eve.", "a": "Ebenezer Scrooge", "hint": "Who am I?", "points": 150 },
+    { "q": "1. My family accidentally flew to Paris without me.\n2. I defended my house with paint cans and toy cars.\n3. I love eating lovely cheese pizza.", "a": "Kevin McCallister", "hint": "Who am I?", "points": 150 }
+   ]
+  }
  }
 ] as Template[];
 

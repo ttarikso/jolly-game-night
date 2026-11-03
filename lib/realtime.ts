@@ -77,5 +77,9 @@ export async function api<T = unknown>(url: string, opts: RequestInit = {}): Pro
 
 export function siteUrl() {
   if (typeof window === "undefined") return process.env.NEXT_PUBLIC_SITE_URL || "";
-  return process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+  const host = window.location.hostname;
+  if (host.endsWith(".vercel.app") && (host.includes("-git-") || host.includes("-3pixel1"))) {
+    return "https://jolly-game-night-app.vercel.app";
+  }
+  return window.location.origin;
 }

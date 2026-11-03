@@ -1,6 +1,13 @@
 "use client";
 import { useState } from "react";
-import type { McData, BoardData, TopData, BuzzerData, McQuestion, BuzzerQuestion } from "@/lib/types";
+import type { Format, McData, BoardData, TopData, BuzzerData, McQuestion, BuzzerQuestion } from "@/lib/types";
+import {
+  GEN_TOPICS,
+  generateMcQuestions,
+  generateBuzzerQuestions,
+  generateBoardCategories,
+  generateTopRounds
+} from "@/lib/generator";
 import { OPTION_STYLE } from "./ui";
 
 function move<T>(list: T[], i: number, d: number): T[] {
@@ -11,10 +18,34 @@ function move<T>(list: T[], i: number, d: number): T[] {
   return c;
 }
 
-function ItemTools({ i, n, onMove, onDup, onDel }: { i: number; n: number; onMove: (d: number) => void; onDup: () => void; onDel: () => void }) {
-  const b = "w-9 h-9 rounded-full bg-cream-200 hover:bg-gold-300 text-ink grid place-items-center disabled:opacity-30";
+function ItemTools({
+  i,
+  n,
+  onMove,
+  onSwapRandom,
+  onDup,
+  onDel
+}: {
+  i: number;
+  n: number;
+  onMove: (d: number) => void;
+  onSwapRandom?: () => void;
+  onDup: () => void;
+  onDel: () => void;
+}) {
+  const b = "w-9 h-9 rounded-full bg-cream-200 hover:bg-gold-300 text-ink grid place-items-center disabled:opacity-30 transition";
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 items-center">
+      {onSwapRandom && (
+        <button
+          type="button"
+          className="h-9 px-3 rounded-full bg-pine-700 hover:bg-pine-600 text-white text-xs font-bold flex items-center gap-1 transition"
+          onClick={onSwapRandom}
+          title="Swap with a random Christmas question"
+        >
+          🎲 Swap
+        </button>
+      )}
       <button type="button" className={b} disabled={i === 0} onClick={() => onMove(-1)} aria-label="Move up">↑</button>
       <button type="button" className={b} disabled={i === n - 1} onClick={() => onMove(1)} aria-label="Move down">↓</button>
       <button type="button" className={b} onClick={onDup} aria-label="Duplicate">⧉</button>
@@ -23,10 +54,93 @@ function ItemTools({ i, n, onMove, onDup, onDel }: { i: number; n: number; onMov
   );
 }
 
-function AddBar({ label, onAdd, onBulk }: { label: string; onAdd: () => void; onBulk?: () => void }) {
+function GeneratorPanel({
+  format,
+  unitLabel,
+  counts,
+  onGenerate
+}: {
+  format: Format;
+  unitLabel: string;
+  counts: number[];
+  onGenerate: (topic: string, count: number) => void;
+}) {
+  const topics = GEN_TOPICS.filter((t) => t.formats.includes(format));
+  const [topic, setTopic] = useState(topics[0]?.id || "mix");
+  const [flash, setFlash] = useState("");
+
+  function trigger(c: number) {
+    onGenerate(topic, c);
+    const t = topics.find((x) => x.id === topic);
+    setFlash(`Added ${c} ${c === 1 ? unitLabel.replace(/s$/, "") : unitLabel} (${t?.label || "Christmas"})! ✨`);
+    setTimeout(() => setFlash(""), 2600);
+  }
+
+  return (
+    <div className="rounded-2xl bg-gradient-to-r from-pine-900/90 via-pine-800/90 to-cran-700/80 border-2 border-gold-400/70 p-5 mb-6 shadow-lg">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div>
+          <span className="inline-block text-xs font-bold uppercase tracking-wider bg-gold-400 text-ink px-2.5 py-0.5 rounded-full">
+            🎄 Christmas Question Generator
+          </span>
+          <h3 className="font-serif text-2xl text-cream-50 mt-1">
+            Need fun holiday {unitLabel}? Generate them in one click!
+          </h3>
+        </div>
+        {flash && <span className="pop text-sm font-bold bg-gold-400 text-ink px-3 py-1.5 rounded-full">{flash}</span>}
+      </div>
+
+      <div className="flex flex-wrap gap-2 mt-3">
+        {topics.map((t) => {
+          const active = topic === t.id;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTopic(t.id)}
+              className={`rounded-xl px-3.5 py-2 text-left text-sm transition border ${
+                active
+                  ? "bg-gold-400 text-ink border-gold-300 font-bold shadow"
+                  : "bg-black/25 text-cream-100 border-white/15 hover:border-gold-400/60"
+              }`}
+            >
+              <span className="mr-1.5">{t.emoji}</span>
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-3 border-t border-white/15">
+        <p className="text-xs text-cream-200/80">
+          {topics.find((x) => x.id === topic)?.desc} · Tip: Use <b>🎲 Swap</b> on any item below to replace just that one!
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          {counts.map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => trigger(c)}
+              className="btn btn-gold !py-2 !px-4 text-sm font-bold"
+            >
+              ✨ + Generate {c} {c === 1 ? unitLabel.replace(/s$/, "") : unitLabel}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AddBar({ label, onAdd, onBulk, onGenQuick }: { label: string; onAdd: () => void; onBulk?: () => void; onGenQuick?: () => void }) {
   return (
     <div className="flex flex-wrap gap-3 mt-4">
       <button type="button" className="btn btn-gold" onClick={onAdd}>+ {label}</button>
+      {onGenQuick && (
+        <button type="button" className="btn btn-cran" onClick={onGenQuick}>
+          🎄 + Generate 5 Christmas questions
+        </button>
+      )}
       {onBulk && <button type="button" className="btn btn-ghost" onClick={onBulk}>Paste many at once</button>}
     </div>
   );
@@ -52,15 +166,36 @@ export function McEditor({ data, onChange }: { data: McData; onChange: (d: McDat
   const qs = data.questions;
   const set = (list: McQuestion[]) => onChange({ questions: list });
   const setQ = (i: number, p: Partial<McQuestion>) => set(qs.map((q, k) => (k === i ? { ...q, ...p } : q)));
+  const existingTexts = () => qs.map((x) => x.q);
+
   return (
     <div>
+      <GeneratorPanel
+        format="mc"
+        unitLabel="questions"
+        counts={[1, 5, 10]}
+        onGenerate={(topic, count) => {
+          const gen = generateMcQuestions(topic, count, existingTexts());
+          set([...qs, ...gen]);
+        }}
+      />
       <p className="text-cream-200/80 mb-3">{qs.length} questions · players answer on their phones. Tick the correct answer.</p>
       <div className="space-y-4">
         {qs.map((q, i) => (
           <div key={i} className="card p-5">
             <div className="flex items-center justify-between gap-3 mb-2">
               <span className="font-block text-cran-600">Q{i + 1}</span>
-              <ItemTools i={i} n={qs.length} onMove={(d) => set(move(qs, i, d))} onDup={() => set([...qs.slice(0, i + 1), structuredClone(q), ...qs.slice(i + 1)])} onDel={() => set(qs.filter((_, k) => k !== i))} />
+              <ItemTools
+                i={i}
+                n={qs.length}
+                onMove={(d) => set(move(qs, i, d))}
+                onSwapRandom={() => {
+                  const [replacement] = generateMcQuestions("mix", 1, existingTexts());
+                  if (replacement) setQ(i, replacement);
+                }}
+                onDup={() => set([...qs.slice(0, i + 1), structuredClone(q), ...qs.slice(i + 1)])}
+                onDel={() => set(qs.filter((_, k) => k !== i))}
+              />
             </div>
             <textarea className="input font-serif text-lg" rows={2} value={q.q} placeholder="Question" onChange={(e) => setQ(i, { q: e.target.value })} />
             <div className="grid sm:grid-cols-2 gap-2 mt-3">
@@ -101,7 +236,12 @@ export function McEditor({ data, onChange }: { data: McData; onChange: (d: McDat
             set([...qs, ...add]); setBulk(false);
           }} />
       ) : (
-        <AddBar label="Add question" onAdd={() => set([...qs, { q: "", options: ["", "", "", ""], correct: 0, time: 20 }])} onBulk={() => setBulk(true)} />
+        <AddBar
+          label="Add blank question"
+          onAdd={() => set([...qs, { q: "", options: ["", "", "", ""], correct: 0, time: 20 }])}
+          onGenQuick={() => set([...qs, ...generateMcQuestions("mix", 5, existingTexts())])}
+          onBulk={() => setBulk(true)}
+        />
       )}
     </div>
   );
@@ -113,15 +253,36 @@ export function BuzzerEditor({ data, onChange }: { data: BuzzerData; onChange: (
   const qs = data.questions;
   const set = (list: BuzzerQuestion[]) => onChange({ questions: list });
   const setQ = (i: number, p: Partial<BuzzerQuestion>) => set(qs.map((q, k) => (k === i ? { ...q, ...p } : q)));
+  const existingTexts = () => qs.map((x) => x.q);
+
   return (
     <div>
+      <GeneratorPanel
+        format="buzzer"
+        unitLabel="clues"
+        counts={[1, 5, 8]}
+        onGenerate={(topic, count) => {
+          const gen = generateBuzzerQuestions(topic, count, existingTexts());
+          set([...qs, ...gen]);
+        }}
+      />
       <p className="text-cream-200/80 mb-3">{qs.length} clues · the first player to buzz answers out loud, you mark it right or wrong.</p>
       <div className="space-y-4">
         {qs.map((q, i) => (
           <div key={i} className="card p-5">
             <div className="flex items-center justify-between gap-3 mb-2">
               <span className="font-block text-cran-600">#{i + 1}</span>
-              <ItemTools i={i} n={qs.length} onMove={(d) => set(move(qs, i, d))} onDup={() => set([...qs.slice(0, i + 1), structuredClone(q), ...qs.slice(i + 1)])} onDel={() => set(qs.filter((_, k) => k !== i))} />
+              <ItemTools
+                i={i}
+                n={qs.length}
+                onMove={(d) => set(move(qs, i, d))}
+                onSwapRandom={() => {
+                  const [replacement] = generateBuzzerQuestions("mix", 1, existingTexts());
+                  if (replacement) setQ(i, replacement);
+                }}
+                onDup={() => set([...qs.slice(0, i + 1), structuredClone(q), ...qs.slice(i + 1)])}
+                onDel={() => set(qs.filter((_, k) => k !== i))}
+              />
             </div>
             <div className="grid md:grid-cols-2 gap-3">
               <label className="block"><span className="label">Clue (text or emoji)</span>
@@ -144,7 +305,12 @@ export function BuzzerEditor({ data, onChange }: { data: BuzzerData; onChange: (
             set([...qs, ...add]); setBulk(false);
           }} />
       ) : (
-        <AddBar label="Add clue" onAdd={() => set([...qs, { q: "", a: "", points: 100 }])} onBulk={() => setBulk(true)} />
+        <AddBar
+          label="Add blank clue"
+          onAdd={() => set([...qs, { q: "", a: "", points: 100 }])}
+          onGenQuick={() => set([...qs, ...generateBuzzerQuestions("mix", 5, existingTexts())])}
+          onBulk={() => setBulk(true)}
+        />
       )}
     </div>
   );
@@ -155,15 +321,38 @@ export function BoardEditor({ data, onChange }: { data: BoardData; onChange: (d:
   const cats = data.categories;
   const setCats = (c: BoardData["categories"]) => onChange({ ...data, categories: c });
   const setCat = (i: number, p: Partial<BoardData["categories"][0]>) => setCats(cats.map((c, k) => (k === i ? { ...c, ...p } : c)));
+  const existingNames = () => cats.map((x) => x.name);
+
   return (
     <div>
+      <GeneratorPanel
+        format="board"
+        unitLabel="categories"
+        counts={[1, 2]}
+        onGenerate={(topic, count) => {
+          const roomLeft = Math.max(0, 8 - cats.length);
+          if (roomLeft === 0) return;
+          const gen = generateBoardCategories(topic, Math.min(count, roomLeft), existingNames());
+          setCats([...cats, ...gen]);
+        }}
+      />
       <p className="text-cream-200/80 mb-3">{cats.length} categories · up to 8 categories and 10 questions each.</p>
       <div className="space-y-4">
         {cats.map((c, i) => (
           <div key={i} className="card p-5">
             <div className="flex items-center gap-3">
               <input className="input font-serif text-xl !bg-cran-600 !text-white !border-cran-600 placeholder:text-white/60" value={c.name} placeholder="Category name" onChange={(e) => setCat(i, { name: e.target.value })} />
-              <ItemTools i={i} n={cats.length} onMove={(d) => setCats(move(cats, i, d))} onDup={() => cats.length < 8 && setCats([...cats.slice(0, i + 1), structuredClone(c), ...cats.slice(i + 1)])} onDel={() => setCats(cats.filter((_, k) => k !== i))} />
+              <ItemTools
+                i={i}
+                n={cats.length}
+                onMove={(d) => setCats(move(cats, i, d))}
+                onSwapRandom={() => {
+                  const [replacement] = generateBoardCategories("mix", 1, existingNames());
+                  if (replacement) setCat(i, replacement);
+                }}
+                onDup={() => cats.length < 8 && setCats([...cats.slice(0, i + 1), structuredClone(c), ...cats.slice(i + 1)])}
+                onDel={() => setCats(cats.filter((_, k) => k !== i))}
+              />
             </div>
             <div className="mt-3 space-y-2">
               {c.questions.map((q, k) => (
@@ -179,7 +368,12 @@ export function BoardEditor({ data, onChange }: { data: BoardData; onChange: (d:
           </div>
         ))}
       </div>
-      {cats.length < 8 && <AddBar label="Add category" onAdd={() => setCats([...cats, { name: "", questions: [100, 200, 300, 400, 500].map((v) => ({ value: v, q: "", a: "" })) }])} />}
+      {cats.length < 8 && (
+        <AddBar
+          label="Add blank category"
+          onAdd={() => setCats([...cats, { name: "", questions: [100, 200, 300, 400, 500].map((v) => ({ value: v, q: "", a: "" })) }])}
+        />
+      )}
       <div className="card p-5 mt-6">
         <label className="flex items-center gap-2 font-semibold"><input type="checkbox" className="w-5 h-5" checked={!!data.final} onChange={(e) => onChange({ ...data, final: e.target.checked ? { q: "", a: "" } : null })} /> Final question (teams wager their points)</label>
         {data.final && (
@@ -198,15 +392,36 @@ export function TopEditor({ data, onChange }: { data: TopData; onChange: (d: Top
   const rs = data.rounds;
   const set = (r: TopData["rounds"]) => onChange({ rounds: r });
   const setR = (i: number, p: Partial<TopData["rounds"][0]>) => set(rs.map((r, k) => (k === i ? { ...r, ...p } : r)));
+  const existingQuestions = () => rs.map((x) => x.q);
+
   return (
     <div>
+      <GeneratorPanel
+        format="top"
+        unitLabel="rounds"
+        counts={[1, 3, 5]}
+        onGenerate={(topic, count) => {
+          const gen = generateTopRounds(topic, count, existingQuestions());
+          set([...rs, ...gen]);
+        }}
+      />
       <p className="text-cream-200/80 mb-3">{rs.length} rounds · up to 10 answers per round, highest points first works best.</p>
       <div className="space-y-4">
         {rs.map((r, i) => (
           <div key={i} className="card p-5">
             <div className="flex items-center justify-between gap-3 mb-2">
               <span className="font-block text-cran-600">Round {i + 1}</span>
-              <ItemTools i={i} n={rs.length} onMove={(d) => set(move(rs, i, d))} onDup={() => set([...rs.slice(0, i + 1), structuredClone(r), ...rs.slice(i + 1)])} onDel={() => set(rs.filter((_, k) => k !== i))} />
+              <ItemTools
+                i={i}
+                n={rs.length}
+                onMove={(d) => set(move(rs, i, d))}
+                onSwapRandom={() => {
+                  const [replacement] = generateTopRounds("mix", 1, existingQuestions());
+                  if (replacement) setR(i, replacement);
+                }}
+                onDup={() => set([...rs.slice(0, i + 1), structuredClone(r), ...rs.slice(i + 1)])}
+                onDel={() => set(rs.filter((_, k) => k !== i))}
+              />
             </div>
             <input className="input font-serif text-lg" value={r.q} placeholder="Name something…" onChange={(e) => setR(i, { q: e.target.value })} />
             <div className="grid sm:grid-cols-2 gap-2 mt-3">
@@ -226,7 +441,7 @@ export function TopEditor({ data, onChange }: { data: TopData; onChange: (d: Top
           </div>
         ))}
       </div>
-      <AddBar label="Add round" onAdd={() => set([...rs, { q: "", answers: [40, 25, 15, 10, 6, 4].map((p) => ({ text: "", points: p })) }])} />
+      <AddBar label="Add blank round" onAdd={() => set([...rs, { q: "", answers: [40, 25, 15, 10, 6, 4].map((p) => ({ text: "", points: p })) }])} />
     </div>
   );
 }

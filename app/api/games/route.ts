@@ -3,6 +3,7 @@ import { requireLicense, bad } from "@/lib/auth";
 import { listGames, createGame } from "@/lib/store";
 import { cleanData, FORMATS } from "@/lib/validate";
 import { TEMPLATES, BLANK } from "@/lib/templates";
+import { generateFullGameData } from "@/lib/generator";
 import type { Format } from "@/lib/types";
 
 export async function GET(req: NextRequest) {
@@ -31,11 +32,24 @@ export async function POST(req: NextRequest) {
   }
   const format = body.format as Format;
   if (!FORMATS.includes(format)) return bad("Unknown format");
+  if (body.generate) {
+    const topic = String(body.topic || "mix");
+    const count = Math.min(30, Math.max(1, Number(body.count) || 8));
+    const data = generateFullGameData(format, topic, count);
+    const g = await createGame(lic.id, {
+      title: String(body.title || "Christmas Party Game").slice(0, 120),
+      format,
+      teams: body.teams != null ? !!body.teams : (format === "top" || format === "board"),
+      theme: String(body.theme || "pine"),
+      data: cleanData(format, data),
+    });
+    return NextResponse.json({ game: g });
+  }
   const g = await createGame(lic.id, {
     title: String(body.title || "My game").slice(0, 120),
     format,
-    teams: format === "top" || format === "board",
-    theme: "pine",
+    teams: body.teams != null ? !!body.teams : (format === "top" || format === "board"),
+    theme: String(body.theme || "pine"),
     data: cleanData(format, structuredClone(BLANK[format])),
   });
   return NextResponse.json({ game: g });
