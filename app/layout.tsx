@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
+import "@/styles/globals.css";
 import { BRAND } from "@/lib/brand";
+import { Toaster } from "@/components/base/toast/toast";
 
-const jakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -21,15 +21,18 @@ const outfit = Outfit({
 const pacifico = localFont({ src: "./fonts/Pacifico-Regular.ttf", variable: "--font-pacifico", display: "swap" });
 
 export const metadata: Metadata = {
-  title: `${BRAND.name} · Live party games for teams`,
+  title: `${BRAND.name} · Live Christmas Party Games`,
   description: BRAND.tagline,
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#06201A" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${pacifico.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="en" className={`${inter.variable} ${outfit.variable} ${pacifico.variable} h-full antialiased`}>
+      <body className="font-sans antialiased min-h-full">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

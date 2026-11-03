@@ -8,6 +8,7 @@ import {
   generateBoardCategories,
   generateTopRounds
 } from "@/lib/generator";
+import { toast } from "@/components/base/toast/toast";
 import { OPTION_STYLE } from "./ui";
 
 function move<T>(list: T[], i: number, d: number): T[] {
@@ -72,7 +73,9 @@ function GeneratorPanel({
   function trigger(c: number) {
     onGenerate(topic, c);
     const t = topics.find((x) => x.id === topic);
-    setFlash(`Added ${c} ${c === 1 ? unitLabel.replace(/s$/, "") : unitLabel} (${t?.label || "Christmas"})! ✨`);
+    const msg = `Added ${c} ${c === 1 ? unitLabel.replace(/s$/, "") : unitLabel} (${t?.label || "Christmas"})! ✨`;
+    setFlash(msg);
+    toast.success("Christmas questions generated!", { description: msg });
     setTimeout(() => setFlash(""), 2600);
   }
 
