@@ -1,0 +1,27 @@
+const { chromium } = require('playwright');
+const BASE='http://localhost:3000'; const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{
+  const b=await chromium.launch(); const ctx=await b.newContext({viewport:{width:1440,height:900}});
+  const h=await ctx.newPage(); h.on('pageerror',e=>console.log('ERR',e.message));
+  const fs=require('fs'); const db=JSON.parse(fs.readFileSync('.data/db.json'));
+  await h.goto(BASE+'/redeem'); await h.click('text=I already have an access key');
+  await h.fill('input', db.licenses[0].key); await h.click('button:has-text("Continue")'); await h.waitForURL('**/dashboard');
+  await h.click('button:has-text("Christmas Movie Emoji Challenge")'); await h.waitForURL('**/edit/**'); await sleep(600);
+  const id=h.url().split('/edit/')[1];
+  await h.fill('input.font-serif', 'Office Party Emoji Quiz');
+  await h.click('button:has-text("Paste many at once")');
+  await h.fill('textarea.font-mono', '🎅🍪🥛 | Milk and cookies\n🦌🔴👃 | Rudolph');
+  await h.click('button:has-text("Add these")'); await sleep(1500);
+  await h.screenshot({path:'qa/30_editor_buzzer.png', fullPage:false});
+  const r=await (await h.request.get(BASE+'/api/games/'+id,{headers:{'x-license-key':db.licenses[0].key}})).json();
+  console.log('saved title:', r.game.title, 'count:', r.game.data.questions.length);
+  await h.goto(BASE+'/host/'+id); await h.click('text=Open the lobby'); await h.click('[data-testid=start]'); await sleep(700);
+  await h.screenshot({path:'qa/31_host_emoji.png'});
+  await h.click('text=Reveal answer'); await sleep(500);
+  await h.screenshot({path:'qa/32_host_emoji_answer.png'});
+  await h.goto(BASE+'/admin'); await h.fill('input[type=password]','dev'); await h.click('text=Sign in'); await sleep(500);
+  await h.fill('textarea','Order ID,Sale Date\n"3456789012","11/04/26"\n"3456789013","11/04/26"'); await h.click('text=Add orders'); await sleep(700);
+  await h.screenshot({path:'qa/33_admin.png'});
+  console.log(await h.locator('p.text-pine-700').innerText());
+  await b.close();
+})();
