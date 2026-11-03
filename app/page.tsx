@@ -47,13 +47,13 @@ export default function Home() {
       <Header
         right={
           <>
-            <Link href="/demo" className="btn btn-cran text-sm">
-              <RiPlayCircleLine className="size-4" /> Try Live Demo
+            <Link href="/demo" className="btn btn-cran text-xs sm:text-sm !px-3 !py-1.5 sm:!px-5 sm:!py-2.5">
+              <RiPlayCircleLine className="size-4" /> <span className="hidden sm:inline">Try Live</span> Demo
             </Link>
-            <Link href="/join" className="btn btn-ghost text-sm">
-              <RiSmartphoneLine className="size-4" /> Join with PIN
+            <Link href="/join" className="btn btn-ghost text-xs sm:text-sm !px-3 !py-1.5 sm:!px-5 sm:!py-2.5">
+              <RiSmartphoneLine className="size-4" /> Join<span className="hidden sm:inline"> with PIN</span>
             </Link>
-            <Link href="/dashboard" className="btn btn-gold text-sm">
+            <Link href="/dashboard" className="btn btn-gold text-xs sm:text-sm !px-3.5 !py-1.5 sm:!px-5 sm:!py-2.5">
               My Games
             </Link>
           </>

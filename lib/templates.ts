@@ -1287,59 +1287,59 @@ export const TEMPLATES: Template[] = [
    "questions": [
     {
      "q": "TRUE or FALSE: The image of Santa Claus in a red suit was invented by Coca-Cola in the 1930s.",
-     "options": ["TRUE — Santa wore green before 1931", "FALSE — Santa wore red decades before Coca-Cola"],
+     "options": ["TRUE", "FALSE"],
      "correct": 1,
      "time": 15,
-     "note": "Illustrator Thomas Nast and White Rock Beverages showed red-suited Santa long before Coca-Cola's 1931 campaign!"
+     "note": "FALSE! Illustrator Thomas Nast and White Rock Beverages showed red-suited Santa decades before Coca-Cola's 1931 campaign!"
     },
     {
      "q": "TRUE or FALSE: The song 'Jingle Bells' never once mentions the word 'Christmas'.",
-     "options": ["TRUE — Not a single 'Christmas' in the lyrics!", "FALSE — It says 'Merry Christmas' in verse 2"],
+     "options": ["TRUE", "FALSE"],
      "correct": 0,
      "time": 15,
-     "note": "It was originally written in 1857 for Thanksgiving as 'One Horse Open Sleigh'!"
+     "note": "TRUE! It was originally written in 1857 for Thanksgiving as 'One Horse Open Sleigh'!"
     },
     {
      "q": "TRUE or FALSE: Real reindeer eyeballs change colour from gold in summer to deep blue in winter.",
-     "options": ["TRUE — To help them see in Arctic darkness", "FALSE — Their eyes stay brown all year"],
+     "options": ["TRUE", "FALSE"],
      "correct": 0,
      "time": 15,
-     "note": "The reflective layer behind their retinas shifts in winter to capture 1,000x more light!"
+     "note": "TRUE! The reflective layer behind their retinas shifts in winter to capture 1,000x more light!"
     },
     {
      "q": "TRUE or FALSE: Artificial Christmas trees were first made by a company that manufactured toilet brushes.",
-     "options": ["TRUE — Using the exact same green-dyed bristles", "FALSE — They were made by a feather-duster factory"],
+     "options": ["TRUE", "FALSE"],
      "correct": 0,
      "time": 15,
-     "note": "In the 1930s, the Addis Brush Company used its toilet-brush machinery to create the first artificial trees!"
+     "note": "TRUE! In the 1930s, the Addis Brush Company used its toilet-brush machinery to create the first artificial trees!"
     },
     {
      "q": "TRUE or FALSE: Celebrating Christmas was once outlawed in Boston, with a 5-shilling fine.",
-     "options": ["TRUE — Banned from 1659 to 1681", "FALSE — Boston held America's first Christmas parade"],
+     "options": ["TRUE", "FALSE"],
      "correct": 0,
      "time": 15,
-     "note": "The Puritans banned Christmas celebrations for 22 years!"
+     "note": "TRUE! The Puritans banned Christmas celebrations from 1659 to 1681!"
     },
     {
      "q": "TRUE or FALSE: All of Santa's sleigh-pulling reindeer with antlers on Christmas Eve must be female.",
-     "options": ["TRUE — Male reindeer drop their antlers before Christmas", "FALSE — Only male reindeer grow antlers"],
+     "options": ["TRUE", "FALSE"],
      "correct": 0,
      "time": 15,
-     "note": "Male reindeer shed their antlers in late autumn, while females keep theirs through winter!"
+     "note": "TRUE! Male reindeer shed their antlers in late autumn, while females keep theirs through winter!"
     },
     {
      "q": "TRUE or FALSE: In Norway, families hide their brooms on Christmas Eve so witches can't steal them.",
-     "options": ["TRUE — It's a centuries-old Norwegian tradition", "FALSE — That's a Halloween tradition in Ireland"],
+     "options": ["TRUE", "FALSE"],
      "correct": 0,
      "time": 15,
-     "note": "Many Norwegian households still tuck their brooms away on December 24th!"
+     "note": "TRUE! Many Norwegian households still tuck their brooms away on December 24th!"
     },
     {
      "q": "TRUE or FALSE: Mariah Carey's 'All I Want for Christmas Is You' is the best-selling physical single of all time.",
-     "options": ["TRUE — Over 60 million CDs sold", "FALSE — Bing Crosby's 'White Christmas' holds the record"],
+     "options": ["TRUE", "FALSE"],
      "correct": 1,
      "time": 15,
-     "note": "Bing Crosby's 'White Christmas' sold ~50 million physical copies!"
+     "note": "FALSE! Bing Crosby's 'White Christmas' holds the record with ~50 million physical copies!"
     }
    ]
   }
@@ -1468,7 +1468,7 @@ export const TEMPLATES: Template[] = [
  },
  {
   "slug": "naughty-or-nice-family-feud",
-  "title": "Naughty or Nice: Holiday Feud",
+  "title": "Naughty or Nice: Top Answers",
   "format": "top",
   "teams": true,
   "theme": "burgundy",

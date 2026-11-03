@@ -23,7 +23,7 @@ export const GEN_TOPICS: GenTopic[] = [
   { id: "riddles", label: "Santa's Riddles & Brainteasers", emoji: "🎁", desc: "Clever holiday riddles — buzz in when you solve it!", formats: ["buzzer", "board"] },
   { id: "lyrics", label: "Finish the Christmas Lyric", emoji: "🎤", desc: "Belt out or say the missing next line of the song", formats: ["buzzer"] },
   { id: "whoami", label: "Who Am I? Holiday Characters", emoji: "⛄", desc: "Three clues about a famous holiday character", formats: ["buzzer"] },
-  { id: "feud_family", label: "Family Christmas Feud", emoji: "👨‍👩‍👧‍👦", desc: "Hilarious survey questions about family holidays", formats: ["top"] },
+  { id: "feud_family", label: "Holiday Top Answers Poll", emoji: "👨‍👩‍👧‍👦", desc: "Hilarious survey questions about family holidays", formats: ["top"] },
 ];
 
 type RawMc = { topic: string; q: string; right: string; wrongs: string[]; time?: number; note?: string };
@@ -263,50 +263,50 @@ const MC_BANK: RawMc[] = [
   {
     topic: "truefalse",
     q: "TRUE or FALSE: The image of Santa Claus wearing a red suit was invented by Coca-Cola in the 1930s.",
-    right: "FALSE — Santa was drawn in red suits decades before Coca-Cola's ads!",
-    wrongs: ["TRUE — Santa always wore green until Coca-Cola changed it in 1931"],
+    right: "FALSE",
+    wrongs: ["TRUE"],
     time: 15,
-    note: "Thomas Nast and White Rock Beverages depicted red-suited Santa long before Haddon Sundblom's 1931 Coke ads."
+    note: "FALSE! Thomas Nast and White Rock Beverages depicted red-suited Santa decades before Coca-Cola's 1931 ads."
   },
   {
     topic: "truefalse",
     q: "TRUE or FALSE: 'Jingle Bells' never actually uses the word 'Christmas' anywhere in its lyrics.",
-    right: "TRUE — the word 'Christmas' doesn't appear once!",
-    wrongs: ["FALSE — it says 'Merry Christmas' in the second verse"],
+    right: "TRUE",
+    wrongs: ["FALSE"],
     time: 15,
-    note: "Check the lyrics — it's all about dashing through the snow in a one-horse open sleigh!"
+    note: "TRUE! Check the lyrics — it's all about dashing through the snow in a one-horse open sleigh, originally written for Thanksgiving!"
   },
   {
     topic: "truefalse",
     q: "TRUE or FALSE: Real reindeer eyeballs change colour from gold in the summer to deep blue in the winter.",
-    right: "TRUE — it helps them see in the dark Arctic winter!",
-    wrongs: ["FALSE — reindeer eyes stay brown all year round"],
+    right: "TRUE",
+    wrongs: ["FALSE"],
     time: 15,
-    note: "Their tapetum lucidum shifts wavelength in winter to capture up to 1,000 times more light!"
+    note: "TRUE! Their eyes shift wavelength in the dark Arctic winter to capture up to 1,000 times more light!"
   },
   {
     topic: "truefalse",
     q: "TRUE or FALSE: Celebrating Christmas was once illegal in Boston, Massachusetts, with a 5-shilling fine.",
-    right: "TRUE — the Puritans banned Christmas from 1659 to 1681!",
-    wrongs: ["FALSE — Boston hosted America's very first Christmas parade in 1650"],
+    right: "TRUE",
+    wrongs: ["FALSE"],
     time: 15,
-    note: "Puritans considered Christmas rowdy and unbiblical, banning it for 22 years!"
+    note: "TRUE! The Puritans considered Christmas rowdy and banned it from 1659 to 1681!"
   },
   {
     topic: "truefalse",
     q: "TRUE or FALSE: Artificial Christmas trees were originally invented by a company that made toilet brushes.",
-    right: "TRUE — the Addis Brush Company used the exact same bristles!",
-    wrongs: ["FALSE — they were invented by an umbrella factory in Paris"],
+    right: "TRUE",
+    wrongs: ["FALSE"],
     time: 15,
-    note: "In the 1930s, Addis dyed their toilet-brush bristles green and attached them to wire branches!"
+    note: "TRUE! In the 1930s, the Addis Brush Company dyed their toilet-brush bristles green and attached them to wire branches!"
   },
   {
     topic: "truefalse",
     q: "TRUE or FALSE: Mistletoe berries are a delicious, sweet snack used to make traditional Christmas jam.",
-    right: "FALSE — mistletoe berries are toxic to humans!",
-    wrongs: ["TRUE — mistletoe jam is a Victorian delicacy"],
+    right: "FALSE",
+    wrongs: ["TRUE"],
     time: 15,
-    note: "Definitely keep mistletoe above your head and off your plate!"
+    note: "FALSE! Mistletoe berries are toxic to humans — keep mistletoe above your head and off your plate!"
   },
 
   // KIDS & FAMILY FRIENDLY
@@ -855,11 +855,14 @@ function shuffle<T>(arr: T[]): T[] {
 
 export function generateMcQuestions(topic: string, count: number, existingQuestions: string[] = []): McQuestion[] {
   const seen = new Set(existingQuestions.map((q) => q.trim().toLowerCase()));
-  const pool = topic === "mix" ? MC_BANK : MC_BANK.filter((x) => x.topic === topic);
+  const pool =
+    topic === "mix"
+      ? MC_BANK.filter((x) => x.topic !== "truefalse" && x.topic !== "would_you_rather")
+      : MC_BANK.filter((x) => x.topic === topic);
   const fresh = pool.filter((x) => !seen.has(x.q.trim().toLowerCase()));
   const source = fresh.length >= count ? fresh : [...fresh, ...pool.filter((x) => seen.has(x.q.trim().toLowerCase()))];
   return shuffle(source).slice(0, count).map((raw) => {
-    const opts = shuffle([raw.right, ...raw.wrongs]);
+    const opts = raw.topic === "truefalse" ? ["TRUE", "FALSE"] : shuffle([raw.right, ...raw.wrongs]);
     return {
       q: raw.q,
       options: opts,

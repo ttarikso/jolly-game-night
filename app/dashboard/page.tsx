@@ -119,7 +119,7 @@ const GAME_BLUEPRINTS: GameBlueprint[] = [
   },
   {
     id: "family-feud",
-    title: "Christmas Family Feud",
+    title: "Holiday Top Answers Showdown",
     emoji: "👨‍👩‍👧‍👦",
     badge: "Teams · Top Survey Answers",
     desc: "Guess the most popular holiday survey answers, avoid 3 strikes, and bank the points!",
@@ -132,7 +132,7 @@ const GAME_BLUEPRINTS: GameBlueprint[] = [
   },
   {
     id: "jeopardy-board",
-    title: "Big Holiday Jeopardy Board",
+    title: "Big Holiday Quiz Board",
     emoji: "🎛️",
     badge: "5 Categories · 100–500 Pts",
     desc: "Categories & point tiles on the big screen, plus a Final Wager round at the end!",

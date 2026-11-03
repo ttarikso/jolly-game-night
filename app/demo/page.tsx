@@ -31,10 +31,10 @@ const DEMO_MC = [
     note: "Kevin gets left behind while the family flies to Paris!",
   },
   {
-    q: "Which reindeer has a shiny glowing red nose?",
-    options: ["Dasher", "Comet", "Rudolph", "Blitzen"],
+    q: "How many reindeer are named in the classic poem ''Twas the Night Before Christmas'?",
+    options: ["Six", "Seven", "Eight", "Ten"],
     correct: 2,
-    note: "Rudolph the Red-Nosed Reindeer!",
+    note: "Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donner, and Blitzen!",
   },
   {
     q: "What do people traditionally put on the very top of a Christmas tree?",
@@ -56,16 +56,16 @@ const DEMO_FEUD = {
 };
 
 const DEMO_BOARD = [
-  { cat: "XMAS MOVIES", pts: 100, q: "This grumpy green character stole Christmas from Whoville.", a: "The Grinch" },
+  { cat: "XMAS MOVIES", pts: 100, q: "In 'Elf', what city does Buddy travel to in search of his dad?", a: "New York City" },
   { cat: "HOLIDAY SONGS", pts: 100, q: "Complete the lyric: 'All I want for Christmas is...'", a: "You! (Mariah Carey)" },
-  { cat: "NORTH POLE", pts: 200, q: "How many reindeer pull Santa's sleigh (including Rudolph)?", a: "9 Reindeer" },
+  { cat: "NORTH POLE", pts: 200, q: "What snack do children traditionally leave out for Santa on Christmas Eve?", a: "Milk & Cookies" },
   { cat: "XMAS FOOD", pts: 200, q: "What creamy holiday drink is often topped with nutmeg?", a: "Eggnog" },
 ];
 
 const DEMO_BUZZ = [
-  { q: "🏠 😱 👦🏼 🎄  burglar", hint: "Emoji Christmas Movie", a: "Home Alone" },
+  { q: "🏠 😱 👦🏼 🎄 🦹‍♂️", hint: "Emoji Christmas Movie", a: "Home Alone" },
   { q: "🚂 🎫 ☕ 🔔 🎅", hint: "Emoji Christmas Movie", a: "The Polar Express" },
-  { q: "⛄ 🎩 🧣 ☀️ 💧", hint: "Emoji Holiday Song", a: "Frosty the Snowman" },
+  { q: "🔔 🐎 🛷 ❄️ 🎶", hint: "Emoji Holiday Song", a: "Jingle Bells" },
 ];
 
 export default function DemoPage() {
@@ -161,8 +161,8 @@ export default function DemoPage() {
         <div className="flex flex-wrap justify-center gap-2 mb-6">
           {[
             { id: "mc", label: "🎄 1. Live Trivia Quiz", sub: "Multiple choice on phones" },
-            { id: "top", label: "🔔 2. Family Feud", sub: "Survey board + strikes" },
-            { id: "board", label: "🎁 3. Jeopardy Board", sub: "Category grid + buzzers" },
+            { id: "top", label: "🔔 2. Holiday Top Answers", sub: "Survey board + strikes" },
+            { id: "board", label: "🎁 3. Holiday Quiz Board", sub: "Category grid + buzzers" },
             { id: "buzzer", label: "🎅 4. Emoji & Song Buzzer", sub: "Fastest finger buzz-in" },
             { id: "generator", label: "✨ 5. Question Generator", sub: "13 Christmas topics" },
           ].map((t) => {
@@ -354,7 +354,7 @@ export default function DemoPage() {
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs font-bold uppercase tracking-wider text-white/80">
-                        Holiday Family Feud · Click tiles to flip!
+                        Holiday Top Answers · Click tiles to flip!
                       </span>
                       <span className="rounded-xl bg-black/40 border border-white/20 px-3 py-1 font-block text-xl text-white">
                         Bank: {feudRevealed.reduce((s, idx) => s + DEMO_FEUD.answers[idx].points, 0)} pts
@@ -448,7 +448,7 @@ export default function DemoPage() {
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs font-bold uppercase tracking-wider text-white/80">
-                        Christmas Jeopardy Board · Pick any point tile!
+                        Holiday Quiz Board · Pick any point tile!
                       </span>
                     </div>
 

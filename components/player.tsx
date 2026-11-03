@@ -181,7 +181,7 @@ export function PlayerApp({ pin }: { pin: string }) {
                     >
                       <AvatarBadge id={av.id} size="md" />
                       <span className="text-[10px] font-bold text-ink mt-1 truncate w-full text-center">
-                        {av.name.split(" ")[0]}
+                        {av.shortName}
                       </span>
                     </button>
                   );

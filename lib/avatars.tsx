@@ -3,6 +3,7 @@ import React from "react";
 export interface CartoonAvatar {
   id: string;
   name: string;
+  shortName: string;
   title: string;
   bg: string;
   ring: string;
@@ -13,6 +14,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "santa",
     name: "Jolly Santa",
+    shortName: "Santa",
     title: "The Big Boss",
     bg: "linear-gradient(135deg, #D92638 0%, #8E1220 100%)",
     ring: "#F0C96E",
@@ -43,6 +45,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "elf-boy",
     name: "Zippy the Elf",
+    shortName: "Zippy",
     title: "Toy Maker",
     bg: "linear-gradient(135deg, #22694F 0%, #0E3B2E 100%)",
     ring: "#F0C96E",
@@ -70,10 +73,11 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "rudolph",
-    name: "Rudolph",
-    title: "Red-Nose Racer",
+    name: "Ruby the Reindeer",
+    shortName: "Ruby",
+    title: "Sleigh Leader",
     bg: "linear-gradient(135deg, #9C6644 0%, #582F0E 100%)",
-    ring: "#FF4D6D",
+    ring: "#F6DC9C",
     svg: (
       <svg viewBox="0 0 100 100" className="w-full h-full">
         {/* Antlers */}
@@ -90,71 +94,76 @@ export const AVATARS: CartoonAvatar[] = [
         <circle cx="60" cy="48" r="4" fill="#1F1B16" />
         <circle cx="41.5" cy="46.5" r="1.5" fill="#FFF" />
         <circle cx="61.5" cy="46.5" r="1.5" fill="#FFF" />
-        {/* Shiny Red Nose */}
-        <circle cx="50" cy="60" r="8" fill="#FF1E42" />
-        <circle cx="47" cy="57" r="2.5" fill="#FF99AC" />
-        <path d="M43 70 Q50 75 57 70" fill="none" stroke="#1F1B16" strokeWidth="3" strokeLinecap="round" />
+        {/* Cute Reindeer Nose & Bell Collar */}
+        <ellipse cx="50" cy="59" rx="6.5" ry="5" fill="#582F0E" />
+        <circle cx="48" cy="57.5" r="2" fill="#A66E38" />
+        <path d="M43 68 Q50 73 57 68" fill="none" stroke="#1F1B16" strokeWidth="3" strokeLinecap="round" />
+        <path d="M32 76 Q50 84 68 76" fill="none" stroke="#D62839" strokeWidth="5" strokeLinecap="round" />
+        <circle cx="50" cy="82" r="5" fill="#F6DC9C" />
       </svg>
     ),
   },
   {
     id: "snowman",
-    name: "Frosty Chills",
-    title: "Cool Guy",
+    name: "Chilly the Snowman",
+    shortName: "Chilly",
+    title: "Coolest in Town",
     bg: "linear-gradient(135deg, #3A86FF 0%, #1D3557 100%)",
     ring: "#A8DADC",
     svg: (
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Top Hat */}
-        <rect x="32" y="14" width="36" height="20" rx="3" fill="#1F1B16" />
-        <rect x="24" y="31" width="52" height="6" rx="3" fill="#1F1B16" />
-        <rect x="32" y="27" width="36" height="4" fill="#E63946" />
+        {/* Cozy Knit Winter Beanie */}
+        <path d="M28 38 C30 16, 70 16, 72 38 Z" fill="#22694F" />
+        <circle cx="50" cy="15" r="7" fill="#FFFFFF" />
+        <rect x="26" y="32" width="48" height="8" rx="4" fill="#D62839" />
         {/* Snow Head */}
         <circle cx="50" cy="58" r="24" fill="#FFFFFF" />
         {/* Scarf */}
-        <path d="M28 74 Q50 82 72 74 L70 84 Q50 90 30 84 Z" fill="#E63946" />
-        <rect x="56" y="76" width="10" height="18" rx="4" fill="#E63946" />
+        <path d="M28 74 Q50 82 72 74 L70 84 Q50 90 30 84 Z" fill="#D62839" />
+        <rect x="56" y="76" width="10" height="18" rx="4" fill="#22694F" />
         {/* Eyes & Carrot Nose */}
         <circle cx="41" cy="50" r="3.5" fill="#1F1B16" />
         <circle cx="59" cy="50" r="3.5" fill="#1F1B16" />
         <polygon points="48,54 68,58 48,61" fill="#FB8500" />
-        {/* Coal Smile */}
-        <circle cx="40" cy="66" r="2" fill="#1F1B16" />
-        <circle cx="45" cy="69" r="2" fill="#1F1B16" />
-        <circle cx="50" cy="70" r="2" fill="#1F1B16" />
-        <circle cx="55" cy="69" r="2" fill="#1F1B16" />
-        <circle cx="60" cy="66" r="2" fill="#1F1B16" />
+        {/* Smile */}
+        <path d="M40 66 Q50 73 60 66" fill="none" stroke="#1F1B16" strokeWidth="3" strokeLinecap="round" />
       </svg>
     ),
   },
   {
     id: "grinch",
-    name: "Mr. Grump",
-    title: "Heart 2x Too Small",
+    name: "Grumpy Goblin",
+    shortName: "Goblin",
+    title: "Bah Humbug Club",
     bg: "linear-gradient(135deg, #52B788 0%, #1B4332 100%)",
     ring: "#B7E4C7",
     svg: (
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Santa Hat */}
-        <path d="M24 38 C32 14, 68 14, 78 34 Z" fill="#E63946" />
-        <rect x="22" y="33" width="56" height="9" rx="4.5" fill="#FFFBF3" />
-        {/* Green Face */}
-        <path d="M50 32 C30 32, 22 52, 26 66 C30 80, 70 80, 74 66 C78 52, 70 32, 50 32 Z" fill="#70E000" />
-        {/* Mischievous Brows & Yellow Eyes */}
-        <path d="M33 45 L46 50" stroke="#1B4332" strokeWidth="4" strokeLinecap="round" />
-        <path d="M67 45 L54 50" stroke="#1B4332" strokeWidth="4" strokeLinecap="round" />
-        <ellipse cx="40" cy="53" rx="5" ry="3.5" fill="#FFD166" />
-        <ellipse cx="60" cy="53" rx="5" ry="3.5" fill="#FFD166" />
-        <circle cx="40" cy="53" r="2" fill="#B5283B" />
-        <circle cx="60" cy="53" r="2" fill="#B5283B" />
-        {/* Grinchy Smirk */}
-        <path d="M34 65 Q50 75 68 62" fill="none" stroke="#1B4332" strokeWidth="3.5" strokeLinecap="round" />
+        {/* Goblin Pointy Ears */}
+        <polygon points="12,50 28,44 26,62" fill="#52B788" />
+        <polygon points="88,50 72,44 74,62" fill="#52B788" />
+        {/* Striped Winter Cap */}
+        <path d="M26 38 C34 14, 66 14, 74 38 Z" fill="#185443" />
+        <rect x="24" y="33" width="52" height="8" rx="4" fill="#D62839" />
+        {/* Round Goblin Face */}
+        <circle cx="50" cy="56" r="23" fill="#52B788" />
+        {/* Grumpy Brows & Dark Eyes */}
+        <path d="M33 46 L45 50" stroke="#1B4332" strokeWidth="4" strokeLinecap="round" />
+        <path d="M67 46 L55 50" stroke="#1B4332" strokeWidth="4" strokeLinecap="round" />
+        <circle cx="40" cy="54" r="4" fill="#1B4332" />
+        <circle cx="60" cy="54" r="4" fill="#1B4332" />
+        <circle cx="41" cy="52.5" r="1.5" fill="#FFFFFF" />
+        <circle cx="61" cy="52.5" r="1.5" fill="#FFFFFF" />
+        {/* Little Fang Grin */}
+        <path d="M38 66 Q50 62 62 66" fill="none" stroke="#1B4332" strokeWidth="3.5" strokeLinecap="round" />
+        <polygon points="43,65 46,60 49,65" fill="#FFFFFF" />
       </svg>
     ),
   },
   {
     id: "gingerbread",
     name: "Gingy Cookie",
+    shortName: "Gingy",
     title: "Sweet & Crispy",
     bg: "linear-gradient(135deg, #D4A373 0%, #8A5A44 100%)",
     ring: "#FFFBF3",
@@ -182,7 +191,8 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "mrs-claus",
-    name: "Mrs. Claus",
+    name: "Mama Claus",
+    shortName: "Mama Claus",
     title: "Cookie Queen",
     bg: "linear-gradient(135deg, #B5283B 0%, #641220 100%)",
     ring: "#F6DC9C",
@@ -209,6 +219,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "penguin",
     name: "Pingo Penguin",
+    shortName: "Pingo",
     title: "Ice Skater",
     bg: "linear-gradient(135deg, #0077B6 0%, #03045E 100%)",
     ring: "#90E0EF",
@@ -232,6 +243,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "polar-bear",
     name: "Barnaby Bear",
+    shortName: "Barnaby",
     title: "Arctic Hugger",
     bg: "linear-gradient(135deg, #457B9D 0%, #1D3557 100%)",
     ring: "#F1FAEE",
@@ -254,7 +266,8 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "nutcracker",
-    name: "Captain Crunch",
+    name: "Captain Tinsel",
+    shortName: "Tinsel",
     title: "Toy Soldier",
     bg: "linear-gradient(135deg, #7209B7 0%, #3A0CA3 100%)",
     ring: "#F0C96E",
@@ -279,6 +292,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "elf-girl",
     name: "Holly Sparkle",
+    shortName: "Holly",
     title: "Gift Wrapper",
     bg: "linear-gradient(135deg, #EC4899 0%, #9D174D 100%)",
     ring: "#FDE68A",
@@ -303,6 +317,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "christmas-cat",
     name: "Whiskers Noel",
+    shortName: "Whiskers",
     title: "Tree Climber",
     bg: "linear-gradient(135deg, #F59E0B 0%, #B45309 100%)",
     ring: "#FEF3C7",
@@ -330,7 +345,8 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "holiday-pup",
     name: "Buster Pup",
-    title: "Santa's Little Helper",
+    shortName: "Buster",
+    title: "Sleigh Helper",
     bg: "linear-gradient(135deg, #10B981 0%, #047857 100%)",
     ring: "#A7F3D0",
     svg: (
@@ -351,7 +367,8 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "snow-owl",
-    name: "Professor Hoot",
+    name: "Hootie Owl",
+    shortName: "Hootie",
     title: "Quiz Master",
     bg: "linear-gradient(135deg, #6366F1 0%, #312E81 100%)",
     ring: "#C7D2FE",
@@ -371,6 +388,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "arctic-fox",
     name: "Foxy Tinsel",
+    shortName: "Foxy",
     title: "Sleigh Navigator",
     bg: "linear-gradient(135deg, #F97316 0%, #9A3412 100%)",
     ring: "#FED7AA",
@@ -388,7 +406,8 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "hot-cocoa",
-    name: "Marshmallow Mug",
+    name: "Cocoa Mug",
+    shortName: "Cocoa",
     title: "Cozy Champion",
     bg: "linear-gradient(135deg, #EC4899 0%, #701A75 100%)",
     ring: "#FBCFE8",
@@ -408,8 +427,9 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "yeti",
-    name: "Bumble Yeti",
-    title: "Abominable Snow-Bro",
+    name: "Blizzard Yeti",
+    shortName: "Blizzard",
+    title: "Snow Monster",
     bg: "linear-gradient(135deg, #06B6D4 0%, #164E63 100%)",
     ring: "#A5F3FC",
     svg: (
@@ -431,16 +451,19 @@ export const AVATARS: CartoonAvatar[] = [
   },
   {
     id: "snow-queen",
-    name: "Queen Elsa-Belle",
-    title: "Ice Royalty",
+    name: "Ice Queen Nova",
+    shortName: "Nova",
+    title: "Winter Royalty",
     bg: "linear-gradient(135deg, #3B82F6 0%, #1E3A8A 100%)",
     ring: "#93C5FD",
     svg: (
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Crown */}
-        <polygon points="32,36 38,16 50,28 62,16 68,36" fill="#F0C96E" />
+        {/* Snowflake Tiara */}
+        <polygon points="32,36 40,18 50,26 60,18 68,36" fill="#93C5FD" stroke="#FFFFFF" strokeWidth="2" />
+        <circle cx="50" cy="20" r="3.5" fill="#FFFFFF" />
         <circle cx="50" cy="56" r="22" fill="#FFDCB8" />
-        <path d="M27 52 C28 32, 72 32, 73 52 C62 42, 38 42, 27 52 Z" fill="#E0F2FE" />
+        {/* Dark Winter Hair */}
+        <path d="M27 52 C28 32, 72 32, 73 52 C62 42, 38 42, 27 52 Z" fill="#1E293B" />
         <circle cx="41" cy="54" r="3.5" fill="#1E3A8A" />
         <circle cx="59" cy="54" r="3.5" fill="#1E3A8A" />
         <path d="M43 65 Q50 70 57 65" fill="none" stroke="#E11D48" strokeWidth="3" strokeLinecap="round" />
@@ -450,6 +473,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "sloth",
     name: "Cozy Sloth",
+    shortName: "Sloth",
     title: "Nap Champion",
     bg: "linear-gradient(135deg, #8B5CF6 0%, #4C1D95 100%)",
     ring: "#DDD6FE",
@@ -472,6 +496,7 @@ export const AVATARS: CartoonAvatar[] = [
   {
     id: "star-kid",
     name: "Twinkle Star",
+    shortName: "Twinkle",
     title: "Tree Topper",
     bg: "linear-gradient(135deg, #EAB308 0%, #713F12 100%)",
     ring: "#FEF08A",

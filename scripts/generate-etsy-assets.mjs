@@ -210,7 +210,7 @@ const SLIDES = [
           </div>
           <div class="card-white" style="padding: 24px 28px; text-align:center;">
             <div style="font-size:44px; font-weight:900; color:#D62839;">4 MODES</div>
-            <div style="font-size:24px; font-weight:800; color:#0B2E24;">Trivia · Feud · Jeopardy · Buzz</div>
+            <div style="font-size:24px; font-weight:800; color:#0B2E24;">Trivia · Top Answers · Quiz Board · Buzz</div>
           </div>
           <div class="card-red" style="padding: 24px 28px; text-align:center;">
             <div style="font-size:44px; font-weight:900;">13 TOPICS</div>
@@ -308,7 +308,7 @@ const SLIDES = [
           <div class="card-white" style="padding: 40px; display:flex; gap:30px; align-items:flex-start;">
             <div style="width:110px; height:110px; border-radius:30px; background:#D62839; color:#fff; font-size:58px; display:grid; place-items:center; flex-shrink:0;">🎄</div>
             <div>
-              <span style="background:#FFE5E8; color:#C1121F; font-weight:900; padding:6px 18px; border-radius:999px; font-size:22px;">MODE 1 · KAHOOT-STYLE</span>
+              <span style="background:#FFE5E8; color:#C1121F; font-weight:900; padding:6px 18px; border-radius:999px; font-size:22px;">MODE 1 · SPEED-BONUS</span>
               <h2 class="title-ui" style="font-size:46px; color:#0B2E24; margin-top:10px;">Live Multiple-Choice Trivia</h2>
               <p style="font-size:28px; color:#2C3E35; margin-top:10px; font-weight:700; line-height:1.4;">
                 Questions appear on the TV with a ticking timer. Everyone taps 🎄 🎁 ⭐ 🔔 on their phone — faster answers earn more points!
@@ -320,7 +320,7 @@ const SLIDES = [
             <div style="width:110px; height:110px; border-radius:30px; background:#FFFFFF; color:#D62839; font-size:58px; display:grid; place-items:center; flex-shrink:0;">🔔</div>
             <div>
               <span style="background:#FFFFFF; color:#C1121F; font-weight:900; padding:6px 18px; border-radius:999px; font-size:22px;">MODE 2 · SURVEY SHOWDOWN</span>
-              <h2 class="title-ui" style="font-size:46px; color:#FFFFFF; margin-top:10px;">Holiday Family Feud ("Top Answers")</h2>
+              <h2 class="title-ui" style="font-size:46px; color:#FFFFFF; margin-top:10px;">Holiday Top Answers ("Top Answers")</h2>
               <p style="font-size:28px; color:#FFF5F6; margin-top:10px; font-weight:700; line-height:1.4;">
                 "We asked 100 elves…" Flip hidden survey answers on the board, rack up the point bank, and trigger giant red ✕ strikes!
               </p>
@@ -331,7 +331,7 @@ const SLIDES = [
             <div style="width:110px; height:110px; border-radius:30px; background:#FFFFFF; color:#185443; font-size:58px; display:grid; place-items:center; flex-shrink:0;">🎁</div>
             <div>
               <span style="background:#FFFFFF; color:#185443; font-weight:900; padding:6px 18px; border-radius:999px; font-size:22px;">MODE 3 · CATEGORY GRID</span>
-              <h2 class="title-ui" style="font-size:46px; color:#FFFFFF; margin-top:10px;">Christmas Jeopardy Quiz Board</h2>
+              <h2 class="title-ui" style="font-size:46px; color:#FFFFFF; margin-top:10px;">Christmas Category Quiz Board</h2>
               <p style="font-size:28px; color:#FFF5F6; margin-top:10px; font-weight:700; line-height:1.4;">
                 5 categories × 5 point values (100 to 500 pts) plus a Final Wager round! Players buzz in on their phones to steal the points.
               </p>
@@ -379,9 +379,9 @@ const SLIDES = [
             ["🎬", "Christmas Movie Buffs", "Live Quiz · 10 Qs", "white"],
             ["🎶", "Festive Tunes & Carols", "Live Quiz · 10 Qs", "red"],
             ["🧒", "Kids' North Pole Quiz", "Family Friendly · 10 Qs", "white"],
-            ["🎁", "The Big Holiday Board", "5x5 Jeopardy Grid", "white"],
-            ["🔔", "Survey Says: Christmas!", "Family Feud · 6 Rounds", "red"],
-            ["👨‍👩‍👧‍👦", "Family Christmas Feud", "Traditions & Arguments", "white"],
+            ["🎁", "The Big Holiday Board", "5x5 Category Grid", "white"],
+            ["🔔", "Survey Says: Christmas!", "Top Answers · 6 Rounds", "red"],
+            ["👨‍👩‍👧‍👦", "Family Holiday Top Answers", "Traditions & Arguments", "white"],
             ["🍿", "Emoji Xmas Movies", "Buzzer Picture Clues", "red"],
             ["🎵", "Emoji Holiday Songs", "Guess the Tune · Buzzer", "red"],
             ["🕯️", "Cozy Christmas Riddles", "Rhyming Brainteasers", "white"],
@@ -438,7 +438,7 @@ const SLIDES = [
             ${[
               ["🎄", "Ultimate Xmas Mix", "Classic trivia & traditions"],
               ["😂", "Funny & Weird Facts", "Hilarious holiday trivia"],
-              ["🎬", "Christmas Movies", "Home Alone, Elf, Grinch"],
+              ["🎬", "Christmas Movies", "Home Alone, Elf, Green Goblin"],
               ["🎶", "Holiday Hits & Carols", "Mariah, Wham!, classics"],
               ["🤥", "True or False?", "50/50 Christmas myths"],
               ["🤔", "Would You Rather?", "Festive party dilemmas"],
@@ -491,12 +491,12 @@ const SLIDES = [
           ${[
             ["🎅", "Jolly Santa", "Big Boss of the North", "#D62839"],
             ["🤶", "Mrs. Claus", "Cookie Queen", "#185443"],
-            ["🦌", "Rudolph", "Red-Nosed Leader", "#D62839"],
+            ["🦌", "Ruby Reindeer", "Red-Nosed Leader", "#D62839"],
             ["🧝‍♂️", "Barnaby Elf", "Chief Toy Maker", "#185443"],
             ["🧝‍♀️", "Tinsel Elf", "Wrap Star", "#D62839"],
-            ["⛄", "Frosty", "Coolest Guy Around", "#185443"],
+            ["⛄", "Chilly Snowman", "Coolest Guy Around", "#185443"],
             ["🍪", "Gingy", "Catch Me If You Can", "#D62839"],
-            ["😈", "Grinchy", "Stealing Your Points", "#185443"],
+            ["😈", "Grumpy Goblin", "Stealing Your Points", "#185443"],
             ["💂", "Nutcracker", "Royal Guard", "#D62839"],
             ["🐧", "Pip Penguin", "South Pole Crasher", "#185443"],
             ["🐻‍❄️", "Barnaby Bear", "Cozy Scarf Club", "#D62839"],
@@ -595,13 +595,13 @@ const SLIDES = [
     `,
   },
 
-  // 8. FAMILY FEUD MODE SHOWCASE
+  // 8. Top Answers MODE SHOWCASE
   {
-    name: "08-family-feud-mode-showcase.png",
+    name: "08-family-poll-mode-showcase.png",
     html: `
       <div class="wrap">
         <div style="text-align:center;">
-          <span class="badge-white">🔔 GAME MODE #2 · HOLIDAY FAMILY FEUD ("TOP ANSWERS")</span>
+          <span class="badge-white">🔔 GAME MODE #2 · Holiday Top Answers ("TOP ANSWERS")</span>
           <h1 class="title-festive" style="font-size: 114px; margin-top: 14px;">
             "Survey Says…" Christmas Edition!
           </h1>
@@ -654,20 +654,20 @@ const SLIDES = [
         </div>
 
         <div class="footer-bar">
-          <span>🔔 Includes 2 Full Family Feud Packs + Unlimited Generator Rounds</span>
+          <span>🔔 Includes 2 Full Top Answers Packs + Unlimited Generator Rounds</span>
           <span>💥 Giant Animated Strike X's & Sound Effects!</span>
         </div>
       </div>
     `,
   },
 
-  // 9. JEOPARDY BOARD SHOWCASE
+  // 9. Category Quiz Board SHOWCASE
   {
-    name: "09-jeopardy-board-showcase.png",
+    name: "09-Quiz Board-board-showcase.png",
     html: `
       <div class="wrap">
         <div style="text-align:center;">
-          <span class="badge-red">🎁 GAME MODE #3 · CHRISTMAS JEOPARDY QUIZ BOARD</span>
+          <span class="badge-red">🎁 GAME MODE #3 · Christmas Category Quiz Board</span>
           <h1 class="title-festive" style="font-size: 114px; margin-top: 14px;">
             Big Screen Category Grid & Buzzers
           </h1>
@@ -747,7 +747,7 @@ const SLIDES = [
               <span style="font-size:64px;">🦌</span>
               <div style="text-align:left;">
                 <div style="font-size:22px; text-transform:uppercase; font-weight:900; opacity:0.9;">🔔 Buzzed In First!</div>
-                <div class="title-ui" style="font-size:48px;">Jingle Jess (Rudolph)</div>
+                <div class="title-ui" style="font-size:48px;">Jingle Jess (Ruby Reindeer)</div>
               </div>
             </div>
           </div>
@@ -983,7 +983,7 @@ const SLIDES = [
           </div>
           <p style="font-size:34px; font-weight:800; max-width:1600px; margin: 0 auto; line-height:1.4;">
             ✔ Play Sample Questions Across All 4 Game Modes<br/>
-            ✔ Test the Live Phone Buzzer & Flip Family Feud Tiles<br/>
+            ✔ Test the Live Phone Buzzer & Flip Top Answers Tiles<br/>
             ✔ Try All 20 Cartoon Avatars & Preview the 13-Topic Question Generator!
           </p>
         </div>
@@ -1014,8 +1014,8 @@ const SLIDES = [
         <div class="card-white" style="padding: 48px; margin: 16px 0;">
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 28px;">
             ${[
-              ["✅ All 4 Live TV Game Show Modes", "Multiple-Choice Trivia, Family Feud, Jeopardy Board & Phone Buzzer"],
-              ["✅ 12 Ready-to-Play Christmas Packs", "Movies, Carols, Classic Trivia, Feud, Kids, Riddles, Emoji Games & more"],
+              ["✅ All 4 Live TV Game Show Modes", "Multiple-Choice Trivia, Top Answers, Category Quiz Board & Phone Buzzer"],
+              ["✅ 12 Ready-to-Play Christmas Packs", "Movies, Carols, Classic Trivia, Top Answers, Kids, Riddles, Emoji Games & more"],
               ["✅ 13-Topic Question Generator", "Generate unlimited fresh Christmas questions in 1 click"],
               ["✅ 20 Cartoon Holiday Avatars", "Custom illustrated characters players choose when scanning the QR code"],
               ["✅ Full Custom Game Editor", "Edit any question, add inside jokes, or build new games from scratch"],
@@ -1194,11 +1194,11 @@ async function main() {
       render: (p) => {
         const players = [
           ["🎅", "Jingle Jess", "Santa"],
-          ["🦌", "Dasher Dan", "Rudolph"],
+          ["🦌", "Dasher Dan", "Ruby Reindeer"],
           ["🤶", "Aunt Sarah", "Mrs. Claus"],
           ["🍪", "Cousin Leo", "Gingy"],
-          ["⛄", "Uncle Bob", "Frosty"],
-          ["😈", "Grinchy Sam", "Goblin"],
+          ["⛄", "Uncle Bob", "Chilly Snowman"],
+          ["😈", "Grumpy Goblin Sam", "Goblin"],
           ["🐧", "Holly", "Penguin"],
           ["🧝‍♀️", "Mia", "Tinsel Elf"],
         ];
@@ -1284,7 +1284,7 @@ async function main() {
         </body></html>`;
       },
     },
-    // Scene 3: Family Feud Flipping Tiles + Buzzer (55 frames = 2.75s)
+    // Scene 3: Top Answers Flipping Tiles + Buzzer (55 frames = 2.75s)
     {
       frames: 55,
       render: (p) => {
@@ -1300,7 +1300,7 @@ async function main() {
           <div class="wrap">
             <div style="text-align:center;">
               <span style="background:#D62839; border:3px solid #fff; padding:10px 28px; border-radius:999px; font-size:22px; font-weight:900;">
-                MODE 2 & 3 · HOLIDAY FAMILY FEUD & JEOPARDY BOARD
+                MODE 2 & 3 · Holiday Top Answers & Category Quiz Board
               </span>
               <h1 class="festive" style="font-size:78px; margin-top:8px;">"Survey Says…" Flip the Top Answers!</h1>
             </div>
@@ -1378,8 +1378,8 @@ async function main() {
           ["🎄", "Classic Xmas Trivia", "Live Quiz"],
           ["😂", "Funny & Weird Xmas", "Hilarious Facts"],
           ["🎬", "Christmas Movies", "Home Alone, Elf"],
-          ["🔔", "Christmas Family Feud", "Survey Showdown"],
-          ["🎁", "Holiday Jeopardy Board", "5x5 Category Grid"],
+          ["🔔", "Holiday Top Answers Showdown", "Survey Showdown"],
+          ["🎁", "Holiday Quiz Board", "5x5 Category Grid"],
           ["🍿", "Emoji Movie Buzzer", "Fastest Finger"],
         ];
         return `<!DOCTYPE html><html><head><style>${VIDEO_CSS}</style></head><body>
@@ -1424,8 +1424,8 @@ async function main() {
       render: (p) => {
         const count = Math.min(3, Math.floor(p * 4) + 1);
         const qs = [
-          "1. Which reindeer has a shiny glowing red nose? (✓ Rudolph)",
-          "2. What grumpy green character stole Christmas from Whoville? (✓ The Grinch)",
+          "1. Which reindeer has a shiny glowing red nose? (✓ Ruby Reindeer)",
+          "2. What grumpy green character stole Christmas from Whoville? (✓ The Green Goblin)",
           "3. In 'Elf', what is the first rule of The Code of Elves? (✓ Treat every day like Christmas!)",
         ];
         return `<!DOCTYPE html><html><head><style>${VIDEO_CSS}</style></head><body>

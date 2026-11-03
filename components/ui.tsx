@@ -20,11 +20,11 @@ export function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
 
 export function Header({ right }: { right?: React.ReactNode }) {
   return (
-    <header className="flex items-center justify-between px-5 py-4 max-w-6xl mx-auto w-full">
-      <Link href="/" aria-label="Home">
+    <header className="flex items-center justify-between gap-2 px-3.5 sm:px-5 py-3.5 max-w-6xl mx-auto w-full">
+      <Link href="/" aria-label="Home" className="shrink-0">
         <Logo size="sm" />
       </Link>
-      <div className="flex items-center gap-2.5">{right}</div>
+      <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 flex-wrap">{right}</div>
     </header>
   );
 }
