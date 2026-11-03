@@ -66,7 +66,9 @@ export type RedeemResult = { ok: true; key: string; recovered: boolean } | { ok:
 export async function redeem(orderRaw: string, emailRaw: string): Promise<RedeemResult> {
   const order_id = normOrder(orderRaw);
   const email = normEmail(emailRaw);
-  if (!order_id || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return { ok: false, error: "Please enter your Etsy order number and a valid email." };
+  if (!order_id || order_id.length < 6 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    return { ok: false, error: "Please enter your valid Etsy order number (at least 6 digits) and email address." };
+  }
   const s = supa();
   let lic: License | null;
   if (s) {
@@ -75,20 +77,54 @@ export async function redeem(orderRaw: string, emailRaw: string): Promise<Redeem
   } else {
     lic = (await readDB()).licenses.find((l) => l.order_id === order_id) || null;
   }
-  if (!lic || lic.status === "revoked")
-    return { ok: false, error: "We couldn't find that order yet. New orders can take a few minutes to appear. Please try again shortly or message us on Etsy." };
-  if (lic.status === "claimed") {
+
+  if (lic && lic.status === "revoked") {
+    return { ok: false, error: "This order access has been revoked. Please message us on Etsy if you need help." };
+  }
+
+  if (lic && lic.status === "claimed") {
     if (lic.email === email && lic.key) return { ok: true, key: lic.key, recovered: true };
     return { ok: false, error: "This order has already been activated with a different email. Message us on Etsy if you need help." };
   }
+
   const key = newKey();
-  const patch = { status: "claimed" as const, email, key, claimed_at: new Date().toISOString() };
+  const now = new Date().toISOString();
+
+  // If pre-seeded as 'available', claim it
+  if (lic && lic.status === "available") {
+    const patch = { status: "claimed" as const, email, key, claimed_at: now };
+    if (s) {
+      const { error } = await s.from("licenses").update(patch).eq("id", lic.id).eq("status", "available");
+      if (error) return { ok: false, error: "Something went wrong. Please try again." };
+    } else {
+      const db = await readDB();
+      Object.assign(db.licenses.find((l) => l.id === lic!.id)!, patch);
+      await writeDB(db);
+    }
+    return { ok: true, key, recovered: false };
+  }
+
+  // Zero-Wait Auto-Provisioning for new Etsy orders: automatically create & claim the license
   if (s) {
-    const { error } = await s.from("licenses").update(patch).eq("id", lic.id).eq("status", "available");
-    if (error) return { ok: false, error: "Something went wrong. Please try again." };
+    const { error } = await s.from("licenses").insert({
+      order_id,
+      email,
+      key,
+      status: "claimed",
+      claimed_at: now,
+    });
+    if (error) return { ok: false, error: "Could not activate order right now. Please try again." };
   } else {
     const db = await readDB();
-    Object.assign(db.licenses.find((l) => l.id === lic!.id)!, patch);
+    db.licenses.push({
+      id: randomUUID(),
+      order_id,
+      email,
+      key,
+      status: "claimed",
+      created_at: now,
+      claimed_at: now,
+    });
     await writeDB(db);
   }
   return { ok: true, key, recovered: false };
