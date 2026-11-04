@@ -10,6 +10,7 @@ import {
   RiTrophyLine,
   RiNotificationBadgeLine,
   RiPlayCircleLine,
+  RiShoppingBag3Line,
 } from "@remixicon/react";
 import { Header, Logo, Stage } from "@/components/ui";
 import { Chip } from "@/components/base/badges/chip";
@@ -72,14 +73,22 @@ export default function Home() {
             {BRAND.tagline}
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
-            <Link href="/redeem" className="btn btn-gold text-base px-7 py-3.5 shadow-lg">
-              <RiKey2Line className="size-5" /> I bought it on Etsy · Activate
-            </Link>
+            <a
+              href={BRAND.etsy}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-gold text-base px-7 py-3.5 shadow-lg"
+            >
+              <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
+            </a>
             <Link href="/demo" className="btn btn-cran text-base px-7 py-3.5 shadow-lg">
               <RiPlayCircleLine className="size-5" /> Try Interactive Demo (Free)
             </Link>
+            <Link href="/redeem" className="btn btn-ghost text-base px-7 py-3.5 shadow-lg">
+              <RiKey2Line className="size-5" /> I bought it · Activate Order
+            </Link>
             <Link href="/join" className="btn btn-ghost text-base px-7 py-3.5">
-              <RiSmartphoneLine className="size-5" /> I have a game PIN
+              <RiSmartphoneLine className="size-5" /> Join with PIN
             </Link>
           </div>
           <p className="mt-4 text-caption-1-medium text-cream-200/70">

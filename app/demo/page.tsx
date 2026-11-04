@@ -155,6 +155,19 @@ export default function DemoPage() {
           <p className="text-cream-100/85 max-w-2xl mx-auto mt-2 text-sm md:text-base">
             See how the <b>Big Screen TV</b> and <b>Player&apos;s Phone</b> work together in real time. Pick your cartoon character, tap answers on the phone, and test all 4 Christmas game modes below!
           </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={BRAND.etsy}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-gold text-base px-6 py-3 shadow-xl"
+            >
+              <RiShoppingBag3Line className="size-5" /> Buy Instant Access on Etsy — $12.99
+            </a>
+            <Link href="/redeem" className="btn btn-ghost text-sm px-4 py-3">
+              <RiKey2Line className="size-4" /> Already Purchased? Activate Order
+            </Link>
+          </div>
         </div>
 
         {/* Mode Switcher Tabs */}
