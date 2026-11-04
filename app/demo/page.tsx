@@ -136,7 +136,13 @@ export default function DemoPage() {
             <Link href="/redeem" className="btn btn-ghost text-sm">
               <RiKey2Line className="size-4" /> Activate Order
             </Link>
-            <a href={BRAND.etsy} target="_blank" rel="noreferrer" className="btn btn-gold text-sm">
+            <a
+              href={BRAND.etsy}
+              target="_blank"
+              rel="noreferrer"
+              style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
+              className="btn text-sm font-extrabold shadow-lg hover:brightness-110"
+            >
               <RiShoppingBag3Line className="size-4" /> Buy on Etsy
             </a>
           </>
@@ -160,9 +166,10 @@ export default function DemoPage() {
               href={BRAND.etsy}
               target="_blank"
               rel="noreferrer"
-              className="btn btn-gold text-base px-6 py-3 shadow-xl"
+              style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
+              className="btn text-base font-extrabold px-7 py-3.5 shadow-xl hover:brightness-110"
             >
-              <RiShoppingBag3Line className="size-5" /> Buy Instant Access on Etsy — $12.99
+              <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
             </a>
             <Link href="/redeem" className="btn btn-ghost text-sm px-4 py-3">
               <RiKey2Line className="size-4" /> Already Purchased? Activate Order
@@ -742,9 +749,10 @@ export default function DemoPage() {
               href={BRAND.etsy}
               target="_blank"
               rel="noreferrer"
-              className="btn bg-white text-cran-700 hover:bg-cream-100 text-base px-6 py-3.5 shadow-xl"
+              style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
+              className="btn text-base font-extrabold px-6 py-3.5 shadow-xl hover:brightness-110"
             >
-              <RiShoppingBag3Line className="size-5" /> Get It on Etsy
+              <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
             </a>
             <Link
               href="/redeem"

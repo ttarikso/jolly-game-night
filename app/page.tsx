@@ -48,6 +48,15 @@ export default function Home() {
       <Header
         right={
           <>
+            <a
+              href={BRAND.etsy}
+              target="_blank"
+              rel="noreferrer"
+              style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
+              className="btn text-xs sm:text-sm font-extrabold !px-3 !py-1.5 sm:!px-5 sm:!py-2.5 shadow-md hover:brightness-110"
+            >
+              <RiShoppingBag3Line className="size-4" /> Buy on Etsy
+            </a>
             <Link href="/demo" className="btn btn-cran text-xs sm:text-sm !px-3 !py-1.5 sm:!px-5 sm:!py-2.5">
               <RiPlayCircleLine className="size-4" /> <span className="hidden sm:inline">Try Live</span> Demo
             </Link>
@@ -77,7 +86,8 @@ export default function Home() {
               href={BRAND.etsy}
               target="_blank"
               rel="noreferrer"
-              className="btn btn-gold text-base px-7 py-3.5 shadow-lg"
+              style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
+              className="btn text-base font-extrabold px-7 py-3.5 shadow-lg hover:brightness-110"
             >
               <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
             </a>
