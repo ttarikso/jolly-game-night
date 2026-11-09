@@ -89,7 +89,7 @@ export default function Home() {
               style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
               className="btn text-base font-extrabold px-7 py-3.5 shadow-lg hover:brightness-110"
             >
-              <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
+              <RiShoppingBag3Line className="size-5" /> Buy on Etsy
             </a>
             <Link href="/demo" className="btn btn-cran text-base px-7 py-3.5 shadow-lg">
               <RiPlayCircleLine className="size-5" /> Try Interactive Demo (Free)

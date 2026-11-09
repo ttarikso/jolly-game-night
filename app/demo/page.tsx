@@ -169,7 +169,7 @@ export default function DemoPage() {
               style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
               className="btn text-base font-extrabold px-7 py-3.5 shadow-xl hover:brightness-110"
             >
-              <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
+              <RiShoppingBag3Line className="size-5" /> Buy on Etsy
             </a>
             <Link href="/redeem" className="btn btn-ghost text-sm px-4 py-3">
               <RiKey2Line className="size-4" /> Already Purchased? Activate Order
@@ -752,7 +752,7 @@ export default function DemoPage() {
               style={{ backgroundColor: "#F1641E", borderColor: "#FFFFFF", color: "#FFFFFF" }}
               className="btn text-base font-extrabold px-6 py-3.5 shadow-xl hover:brightness-110"
             >
-              <RiShoppingBag3Line className="size-5" /> Buy on Etsy — $12.99
+              <RiShoppingBag3Line className="size-5" /> Buy on Etsy
             </a>
             <Link
               href="/redeem"
