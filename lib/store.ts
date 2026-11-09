@@ -2,7 +2,8 @@ import { randomBytes, randomUUID } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import type { Game, License, Format, GameData } from "./types";
+import type { EtsyAuth, Game, License, Format, GameData } from "./types";
+import { isEtsyConfigured, verifyReceipt } from "./etsy";
 
 /* Data store. Uses Supabase (service role, server only) when SUPABASE_URL and
    SUPABASE_SERVICE_ROLE_KEY are set; otherwise a local JSON file for development. */
@@ -10,22 +11,23 @@ import type { Game, License, Format, GameData } from "./types";
 const SB_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SB_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 let sb: SupabaseClient | null = null;
-function supa() {
+export function supa() {
   if (!SB_URL || !SB_KEY) return null;
   if (!sb) sb = createClient(SB_URL, SB_KEY, { auth: { persistSession: false } });
   return sb;
 }
 
+const ETSY_AUTH_SENTINEL = "__ETSY_AUTH__";
+
 interface Room { pin: string; game_id: string; license_id: string; created_at: string }
-interface DB { licenses: License[]; games: Game[]; rooms: Room[] }
+interface DB { licenses: License[]; games: Game[]; rooms: Room[]; etsy_auth?: EtsyAuth | null }
 const FILE = path.join(process.cwd(), ".data", "db.json");
 
 async function readDB(): Promise<DB> {
   try {
     return JSON.parse(await fs.readFile(FILE, "utf8"));
   } catch {
-    const db: DB = { licenses: [], games: [], rooms: [] };
-    // dev seed: one ready-to-redeem order
+    const db: DB = { licenses: [], games: [], rooms: [], etsy_auth: null };
     db.licenses.push({ id: randomUUID(), order_id: "1000000001", email: null, key: null, status: "available", created_at: new Date().toISOString(), claimed_at: null });
     await writeDB(db);
     return db;
@@ -45,20 +47,87 @@ export function newKey() {
   return `GN-${code(4)}-${code(4)}-${code(4)}`;
 }
 export function normOrder(s: string) {
-  return String(s || "").replace(/[^0-9A-Za-z]/g, "").toUpperCase();
+  return String(s || "").replace(/[\s#-]/g, "").trim().toUpperCase();
 }
 const normEmail = (s: string) => String(s || "").trim().toLowerCase();
+
+// ------------------------------------------------------------------ Etsy Auth
+export async function getEtsyAuth(): Promise<EtsyAuth | null> {
+  const s = supa();
+  if (s) {
+    const { data } = await s
+      .from("licenses")
+      .select("email")
+      .eq("order_id", ETSY_AUTH_SENTINEL)
+      .maybeSingle();
+    if (data?.email) {
+      try {
+        return JSON.parse(data.email) as EtsyAuth;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }
+  return (await readDB()).etsy_auth || null;
+}
+
+export async function saveEtsyAuth(auth: {
+  access_token: string;
+  refresh_token: string;
+  expires_at: string;
+}): Promise<void> {
+  const row: EtsyAuth = {
+    id: 1,
+    access_token: auth.access_token,
+    refresh_token: auth.refresh_token,
+    expires_at: auth.expires_at,
+    updated_at: new Date().toISOString(),
+  };
+  const s = supa();
+  if (s) {
+    const payload = JSON.stringify(row);
+    const { data: existing } = await s
+      .from("licenses")
+      .select("id")
+      .eq("order_id", ETSY_AUTH_SENTINEL)
+      .maybeSingle();
+    if (existing?.id) {
+      await s
+        .from("licenses")
+        .update({ email: payload, status: "revoked" })
+        .eq("id", existing.id);
+    } else {
+      await s.from("licenses").insert({
+        order_id: ETSY_AUTH_SENTINEL,
+        email: payload,
+        key: null,
+        status: "revoked",
+      });
+    }
+    return;
+  }
+  const db = await readDB();
+  db.etsy_auth = row;
+  await writeDB(db);
+}
 
 // ------------------------------------------------------------------ licenses
 export async function licenseByKey(key: string): Promise<License | null> {
   if (!key) return null;
   const s = supa();
   if (s) {
-    const { data } = await s.from("licenses").select("*").eq("key", key).eq("status", "claimed").maybeSingle();
+    const { data } = await s
+      .from("licenses")
+      .select("*")
+      .eq("key", key)
+      .eq("status", "claimed")
+      .neq("order_id", ETSY_AUTH_SENTINEL)
+      .maybeSingle();
     return (data as License) || null;
   }
   const db = await readDB();
-  return db.licenses.find((l) => l.key === key && l.status === "claimed") || null;
+  return db.licenses.find((l) => l.key === key && l.status === "claimed" && l.order_id !== ETSY_AUTH_SENTINEL) || null;
 }
 
 export type RedeemResult = { ok: true; key: string; recovered: boolean } | { ok: false; error: string };
@@ -66,8 +135,11 @@ export type RedeemResult = { ok: true; key: string; recovered: boolean } | { ok:
 export async function redeem(orderRaw: string, emailRaw: string): Promise<RedeemResult> {
   const order_id = normOrder(orderRaw);
   const email = normEmail(emailRaw);
-  if (!order_id || order_id.length < 6 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    return { ok: false, error: "Please enter your valid Etsy order number (at least 6 digits) and email address." };
+  if (!/^\d{6,14}$/.test(order_id) || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    return {
+      ok: false,
+      error: "Please enter a valid numeric Etsy order number (from your Etsy receipt) and email address.",
+    };
   }
   const s = supa();
   let lic: License | null;
@@ -90,7 +162,7 @@ export async function redeem(orderRaw: string, emailRaw: string): Promise<Redeem
   const key = newKey();
   const now = new Date().toISOString();
 
-  // If pre-seeded as 'available', claim it
+  // If pre-seeded in /admin as 'available', claim it directly
   if (lic && lic.status === "available") {
     const patch = { status: "claimed" as const, email, key, claimed_at: now };
     if (s) {
@@ -104,7 +176,48 @@ export async function redeem(orderRaw: string, emailRaw: string): Promise<Redeem
     return { ok: true, key, recovered: false };
   }
 
-  // Zero-Wait Auto-Provisioning for new Etsy orders: automatically create & claim the license
+  // Unknown order: verify live against the DigitarMercato Etsy API
+  const configured = await isEtsyConfigured();
+  if (!configured) {
+    if (process.env.NODE_ENV === "production") {
+      return {
+        ok: false,
+        error: "We couldn't verify this order automatically right now. Please message us on Etsy at DigitarMercato and we'll activate it right away!",
+      };
+    }
+  } else {
+    const verdict = await verifyReceipt(order_id);
+    if (!verdict.ok) {
+      switch (verdict.reason) {
+        case "not_found":
+          return {
+            ok: false,
+            error: "We couldn't find this Etsy order. Please check the 10-digit order number on your Etsy receipt under Purchases & Reviews.",
+          };
+        case "other_listing":
+          return {
+            ok: false,
+            error: "This order number is not for a Jolly Christmas Game Night listing. Message us on Etsy if you need help.",
+          };
+        case "refunded":
+          return {
+            ok: false,
+            error: "This order was cancelled or refunded, so it cannot be activated.",
+          };
+        case "unpaid":
+          return {
+            ok: false,
+            error: "Etsy is still processing your payment. Please try again in a few minutes.",
+          };
+        case "unavailable":
+          return {
+            ok: false,
+            error: "We couldn't reach Etsy to verify your order right now. Please try again in a minute.",
+          };
+      }
+    }
+  }
+
   if (s) {
     const { error } = await s.from("licenses").insert({
       order_id,
@@ -113,7 +226,9 @@ export async function redeem(orderRaw: string, emailRaw: string): Promise<Redeem
       status: "claimed",
       claimed_at: now,
     });
-    if (error) return { ok: false, error: "Could not activate order right now. Please try again." };
+    if (error) {
+      return { ok: false, error: "This order has already been activated with a different email. Message us on Etsy if you need help." };
+    }
   } else {
     const db = await readDB();
     db.licenses.push({
@@ -131,7 +246,7 @@ export async function redeem(orderRaw: string, emailRaw: string): Promise<Redeem
 }
 
 export async function addOrders(ids: string[]): Promise<{ added: number; skipped: number }> {
-  const clean = Array.from(new Set(ids.map(normOrder).filter((x) => x.length >= 4)));
+  const clean = Array.from(new Set(ids.map(normOrder).filter((x) => /^\d{6,14}$/.test(x))));
   const s = supa();
   if (s) {
     const { data: existing } = await s.from("licenses").select("order_id").in("order_id", clean);
@@ -155,20 +270,25 @@ export async function addOrders(ids: string[]): Promise<{ added: number; skipped
 export async function listLicenses(): Promise<License[]> {
   const s = supa();
   if (s) {
-    const { data } = await s.from("licenses").select("*").order("created_at", { ascending: false }).limit(1000);
+    const { data } = await s
+      .from("licenses")
+      .select("*")
+      .neq("order_id", ETSY_AUTH_SENTINEL)
+      .order("created_at", { ascending: false })
+      .limit(1000);
     return (data as License[]) || [];
   }
-  return (await readDB()).licenses.slice().reverse();
+  return (await readDB()).licenses.filter((l) => l.order_id !== ETSY_AUTH_SENTINEL).slice().reverse();
 }
 
 export async function setLicenseStatus(id: string, status: License["status"]) {
   const s = supa();
   if (s) {
-    await s.from("licenses").update({ status }).eq("id", id);
+    await s.from("licenses").update({ status }).eq("id", id).neq("order_id", ETSY_AUTH_SENTINEL);
     return;
   }
   const db = await readDB();
-  const l = db.licenses.find((x) => x.id === id);
+  const l = db.licenses.find((x) => x.id === id && x.order_id !== ETSY_AUTH_SENTINEL);
   if (l) l.status = status;
   await writeDB(db);
 }

@@ -13,6 +13,7 @@ export default function Admin() {
   const [text, setText] = useState("");
   const [msg, setMsg] = useState("");
   const [rows, setRows] = useState<License[]>([]);
+  const [etsyInfo, setEtsyInfo] = useState<{ connected: boolean; lastRefreshed: string | null } | null>(null);
   const [q, setQ] = useState("");
 
   useEffect(() => {
@@ -38,6 +39,10 @@ export default function Admin() {
       sessionStorage.setItem("gn_admin", s);
     } catch {}
     setRows((await r.json()).licenses);
+    const etsyRes = await fetch("/api/admin/etsy/status", { headers: { "x-admin-secret": s } });
+    if (etsyRes.ok) {
+      setEtsyInfo(await etsyRes.json());
+    }
   }
 
   async function add() {
@@ -103,6 +108,29 @@ export default function Admin() {
           </form>
         ) : (
           <>
+            <div className="card p-4 flex flex-wrap items-center justify-between gap-3 text-sm">
+              <div className="flex items-center gap-2.5">
+                <span
+                  className={`inline-block w-2.5 h-2.5 rounded-full ${
+                    etsyInfo?.connected ? "bg-emerald-500" : "bg-amber-500"
+                  }`}
+                />
+                <span className="text-ink/80 font-medium">
+                  {etsyInfo?.connected
+                    ? `Etsy Live Order Verification Active · Token refreshed ${
+                        etsyInfo.lastRefreshed ? new Date(etsyInfo.lastRefreshed).toLocaleString() : "recently"
+                      }`
+                    : "Etsy Live Verification Not Connected"}
+                </span>
+              </div>
+              <a
+                href={`/api/admin/etsy/connect?secret=${encodeURIComponent(secret)}`}
+                className="px-3.5 py-1.5 rounded-lg bg-pine-700 text-white text-xs font-semibold hover:bg-pine-800 transition"
+              >
+                {etsyInfo?.connected ? "Reconnect Etsy" : "Connect Etsy"}
+              </a>
+            </div>
+
             <div className="card p-6 space-y-3">
               <div className="flex items-center gap-2">
                 <RiShieldCheckLine className="size-5 text-pine-700" />

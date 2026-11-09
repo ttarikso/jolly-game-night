@@ -37,6 +37,18 @@ export interface License {
   claimed_at: string | null;
 }
 
+export interface EtsyAuth {
+  id: number;
+  access_token: string;
+  refresh_token: string;
+  expires_at: string;
+  updated_at: string;
+}
+
+export type EtsyVerdict =
+  | { ok: true; quantity: number; status: string }
+  | { ok: false; reason: "not_found" | "other_listing" | "refunded" | "unpaid" | "unavailable" };
+
 export const FORMAT_INFO: Record<Format, { name: string; blurb: string; phones: string }> = {
   mc: { name: "Live Quiz", blurb: "Multiple-choice questions with a timer. Fast right answers score more.", phones: "Players tap A, B, C or D on their phones." },
   board: { name: "Quiz Board", blurb: "Categories and point values on a big board. Teams pick, buzz and answer out loud.", phones: "Phones become buzzers." },
